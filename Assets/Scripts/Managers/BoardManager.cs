@@ -2,101 +2,250 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
+    public static BoardManager Instance;
 
     public GameObject tilePrefab;
+    public GameObject unitPrefab;
 
-    int boardwidth = 7;
-    int boardheight = 8;
+    Tile[,] boardTiles;
+    Tile[] benchTiles;
 
-    int benchHeight = 5;
+    Unit draggingUnit;
 
-    float tileWidth = 1f;
-    float tileHeight = 1f;
+    Vector3 dragOffset;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
         CreateBoard();
         CreateBench();
-    }
-
-    void CreateBoard()
-    {
-        float offsetX = 0f;
-        float offsetY = -3.5f;
-
-        for (int y = 0; y < boardheight; y++)
-        {
-            for (int x = 0; x < boardwidth; x++)
-            {
-                Vector3 pos = new Vector3(
-                    x * tileWidth + offsetX,
-                    y * tileHeight + offsetY,
-                    0
-                    );
-                GameObject tile = Instantiate(tilePrefab, pos, Quaternion.identity);
-
-                Tile tileScript = tile.GetComponent<Tile>();
-
-                tileScript.x = x;
-                tileScript.y = y;
-                tileScript.tileType = TileType.Board;
-            }
-        }
-    }
-
-    void CreateBench()
-    {
-        float benchX = -2f;
-        float offsetY = -2f;
-
-        for (int y = 0; y < benchHeight; y++)
-        {
-            Vector3 pos = new Vector3(
-                benchX,
-                y * tileHeight + offsetY,
-                0
-            );
-
-            GameObject tile = Instantiate(tilePrefab, pos, Quaternion.identity);
-
-            Tile tileScript = tile.GetComponent<Tile>();
-
-            tileScript.x = -1;
-            tileScript.y = y;
-            tileScript.tileType = TileType.Bench;
-        }
+        SpawnUnit();
     }
 
     void Update()
     {
+        HandleMouseInput();
+    }
+
+    // =========================
+    // マウス入力
+    // =========================
+
+    void HandleMouseInput()
+    {
+        Vector3 mouseWorld =
+            Camera.main.ScreenToWorldPoint(
+                Input.mousePosition
+            );
+
+        mouseWorld.z = 0;
+
+        // 押した瞬間
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 mouseScreenPos = Input.mousePosition;
-
-            mouseScreenPos.z = 10f;
-
-            Vector3 mouseWorldPos =
-                Camera.main.ScreenToWorldPoint(mouseScreenPos);
-
-            Vector2 mousePos2D =
-                new Vector2(mouseWorldPos.x, mouseWorldPos.y);
-
             Collider2D hit =
-                Physics2D.OverlapPoint(mousePos2D);
+                Physics2D.OverlapPoint(mouseWorld);
 
             if (hit != null)
             {
-                Tile tile =
-                    hit.GetComponent<Tile>();
+                Unit unit =
+                    hit.GetComponent<Unit>();
 
-                if (tile != null)
+                if (unit != null)
                 {
-                    Debug.Log(
-                        $"Clicked : {tile.tileType} ({tile.x +1}, {tile.y +1})"
-                    );
+                    draggingUnit = unit;
+
+                    dragOffset =
+                        unit.transform.position
+                        - mouseWorld;
                 }
             }
         }
+
+        // ドラッグ中
+        if (
+            draggingUnit != null &&
+            Input.GetMouseButton(0)
+        )
+        {
+            draggingUnit.transform.position =
+                mouseWorld + dragOffset;
+        }
+
+        // 離した
+        if (
+            draggingUnit != null &&
+            Input.GetMouseButtonUp(0)
+        )
+        {
+            DropUnit(mouseWorld);
+        }
+    }
+
+    // =========================
+    // Unitを置く
+    // =========================
+
+    void DropUnit(Vector3 mouseWorld)
+    {
+        Collider2D[] hits =
+            Physics2D.OverlapPointAll(mouseWorld);
+
+        Tile targetTile = null;
+
+        foreach (Collider2D hit in hits)
+        {
+            Tile tile =
+                hit.GetComponent<Tile>();
+
+            if (tile != null)
+            {
+                targetTile = tile;
+                break;
+            }
+        }
+
+        // タイルなし
+        if (targetTile == null)
+        {
+            ReturnUnit();
+            return;
+        }
+
+        // 埋まってる
+        if (
+            targetTile.currentUnit != null &&
+            targetTile.currentUnit != draggingUnit
+        )
+        {
+            ReturnUnit();
+            return;
+        }
+
+        // 元タイル空に
+        draggingUnit.currentTile.currentUnit =
+            null;
+
+        // 新タイル
+        draggingUnit.currentTile =
+            targetTile;
+
+        targetTile.currentUnit =
+            draggingUnit;
+
+        draggingUnit.transform.position =
+            targetTile.transform.position;
+
+        draggingUnit = null;
+    }
+
+    void ReturnUnit()
+    {
+        draggingUnit.transform.position =
+            draggingUnit.currentTile.transform.position;
+
+        draggingUnit = null;
+    }
+
+    // =========================
+    // Board生成
+    // =========================
+
+    void CreateBoard()
+    {
+        boardTiles = new Tile[7, 8];
+
+        float offsetY = -3.5f;
+
+        for (int y = 0; y < 8; y++)
+        {
+            for (int x = 0; x < 7; x++)
+            {
+                Vector3 pos =
+                    new Vector3(
+                        x,
+                        y + offsetY,
+                        0
+                    );
+
+                GameObject obj =
+                    Instantiate(
+                        tilePrefab,
+                        pos,
+                        Quaternion.identity
+                    );
+
+                Tile tile =
+                    obj.GetComponent<Tile>();
+
+                tile.x = x;
+                tile.y = y;
+                tile.tileType =
+                    TileType.Board;
+
+                boardTiles[x, y] = tile;
+            }
+        }
+    }
+
+    // =========================
+    // Bench生成
+    // =========================
+
+    void CreateBench()
+    {
+        benchTiles = new Tile[5];
+
+        for (int y = 0; y < 5; y++)
+        {
+            Vector3 pos =
+                new Vector3(
+                    -2,
+                    y - 2,
+                    0
+                );
+
+            GameObject obj =
+                Instantiate(
+                    tilePrefab,
+                    pos,
+                    Quaternion.identity
+                );
+
+            Tile tile =
+                obj.GetComponent<Tile>();
+
+            tile.tileType =
+                TileType.Bench;
+
+            benchTiles[y] = tile;
+        }
+    }
+
+    // =========================
+    // Unit生成
+    // =========================
+
+    void SpawnUnit()
+    {
+        Tile tile = benchTiles[0];
+
+        GameObject obj =
+            Instantiate(
+                unitPrefab,
+                tile.transform.position,
+                Quaternion.identity
+            );
+
+        Unit unit =
+            obj.GetComponent<Unit>();
+
+        unit.currentTile = tile;
+
+        tile.currentUnit = unit;
     }
 }

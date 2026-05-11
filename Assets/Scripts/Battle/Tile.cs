@@ -13,4 +13,5 @@ public class Tile : MonoBehaviour
 
     public TileType tileType;
 
+    public Unit currentUnit;
 }
