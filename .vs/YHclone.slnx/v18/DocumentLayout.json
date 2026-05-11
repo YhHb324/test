@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "E:\\YHclone\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\YHclone\\Assets\\Scripts\\TitleManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\TitleManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\YHclone\\Assets\\Scripts\\Managers\\BoardManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Managers\\BoardManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "TitleManager.cs",
-              "DocumentMoniker": "E:\\YHclone\\Assets\\Scripts\\TitleManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\TitleManager.cs",
-              "ToolTip": "E:\\YHclone\\Assets\\Scripts\\TitleManager.cs",
-              "RelativeToolTip": "Assets\\Scripts\\TitleManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
+              "Title": "BoardManager.cs",
+              "DocumentMoniker": "E:\\YHclone\\Assets\\Scripts\\Managers\\BoardManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\BoardManager.cs",
+              "ToolTip": "E:\\YHclone\\Assets\\Scripts\\Managers\\BoardManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Managers\\BoardManager.cs",
+              "ViewState": "AgIAAGkAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-08T18:14:26.213Z",
+              "WhenOpened": "2026-05-11T10:09:26.146Z",
               "EditorCaption": ""
             }
           ]
