@@ -116,6 +116,13 @@ public class BoardManager : MonoBehaviour
             return;
         }
 
+        //敵陣
+        if (targetTile.tileArea == TileArea.Enemy)
+        {
+            ReturnUnit();
+            return;
+        }
+
         // 埋まってる
         if (
             targetTile.currentUnit != null &&
@@ -184,8 +191,23 @@ public class BoardManager : MonoBehaviour
 
                 tile.x = x;
                 tile.y = y;
-                tile.tileType =
-                    TileType.Board;
+                tile.tileType = TileType.Board;
+
+                // 下4列 = Player
+                if (y < 4)
+                {
+                    tile.tileArea =
+                        TileArea.Player;
+                }
+
+                // 上4列 = Enemy
+                else
+                {
+                    tile.tileArea =
+                        TileArea.Enemy;
+                }
+
+                tile.UpdateColor();
 
                 boardTiles[x, y] = tile;
             }
@@ -219,8 +241,8 @@ public class BoardManager : MonoBehaviour
             Tile tile =
                 obj.GetComponent<Tile>();
 
-            tile.tileType =
-                TileType.Bench;
+            tile.tileType = TileType.Bench;
+            tile.UpdateColor();
 
             benchTiles[y] = tile;
         }
