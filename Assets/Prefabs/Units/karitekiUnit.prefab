@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -2793273230635292083}
   - component: {fileID: -916007517637385753}
   m_Layer: 0
-  m_Name: kariUnit
+  m_Name: karitekiUnit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,12 +165,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cbd56bd3ce1b5c46aaca6d6bf56ab1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleUnit
-  isEnemy: 0
-  hp: 50
+  isEnemy: 1
+  hp: 100
   attack: 20
   range: 1
   attackInterval: 1
   moveDuration: 0.5
   currentTile: {fileID: 0}
-  isOnBench: 1
+  isOnBench: 0
   isDead: 0
