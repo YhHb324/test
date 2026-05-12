@@ -6,11 +6,15 @@ public class BoardManager : MonoBehaviour
 
     public GameObject tilePrefab;
     public GameObject unitPrefab;
+    public GameObject enemyUnitPrefab;
+
+    public int boardWidth = 7;
+    public int boardHeight = 8;
 
     Tile[,] boardTiles;
     Tile[] benchTiles;
 
-    Unit draggingUnit;
+    BattleUnit draggingUnit;
 
     Vector3 dragOffset;
 
@@ -24,6 +28,7 @@ public class BoardManager : MonoBehaviour
         CreateBoard();
         CreateBench();
         SpawnUnit();
+        SpawnEnemyUnit();
     }
 
     void Update()
@@ -37,10 +42,11 @@ public class BoardManager : MonoBehaviour
 
     void HandleMouseInput()
     {
+        if (BattleManager.Instance.state != GameState.Setup)
+                return;
+
         Vector3 mouseWorld =
-            Camera.main.ScreenToWorldPoint(
-                Input.mousePosition
-            );
+        Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         mouseWorld.z = 0;
 
@@ -52,8 +58,7 @@ public class BoardManager : MonoBehaviour
 
             if (hit != null)
             {
-                Unit unit =
-                    hit.GetComponent<Unit>();
+                BattleUnit unit = hit.GetComponent<BattleUnit>();
 
                 if (unit != null)
                 {
@@ -92,6 +97,7 @@ public class BoardManager : MonoBehaviour
 
     void DropUnit(Vector3 mouseWorld)
     {
+
         Collider2D[] hits =
             Physics2D.OverlapPointAll(mouseWorld);
 
@@ -147,6 +153,10 @@ public class BoardManager : MonoBehaviour
         draggingUnit.transform.position =
             targetTile.transform.position;
 
+        draggingUnit.isOnBench =
+        (targetTile.tileType == TileType.Bench);
+        Debug.Log("Called DropUnit");
+
         draggingUnit = null;
     }
 
@@ -164,13 +174,13 @@ public class BoardManager : MonoBehaviour
 
     void CreateBoard()
     {
-        boardTiles = new Tile[7, 8];
-
         float offsetY = -3.5f;
 
-        for (int y = 0; y < 8; y++)
+        boardTiles = new Tile[boardWidth, boardHeight];
+
+        for (int y = 0; y < boardHeight; y++)
         {
-            for (int x = 0; x < 7; x++)
+            for (int x = 0; x < boardWidth; x++)
             {
                 Vector3 pos =
                     new Vector3(
@@ -220,6 +230,7 @@ public class BoardManager : MonoBehaviour
 
     void CreateBench()
     {
+        float offsetY = -2f;
         benchTiles = new Tile[5];
 
         for (int y = 0; y < 5; y++)
@@ -227,7 +238,7 @@ public class BoardManager : MonoBehaviour
             Vector3 pos =
                 new Vector3(
                     -2,
-                    y - 2,
+                    y + offsetY,
                     0
                 );
 
@@ -254,20 +265,58 @@ public class BoardManager : MonoBehaviour
 
     void SpawnUnit()
     {
-        Tile tile = benchTiles[0];
+        Tile tile1 = benchTiles[0];
 
-        GameObject obj =
+        GameObject obj1 =
             Instantiate(
                 unitPrefab,
-                tile.transform.position,
+                tile1.transform.position,
                 Quaternion.identity
             );
 
-        Unit unit =
-            obj.GetComponent<Unit>();
+        BattleUnit unit1 =
+            obj1.GetComponent<BattleUnit>();
 
+        unit1.currentTile = tile1;
+
+        tile1.currentUnit = unit1;
+
+        Tile tile2 = benchTiles[1];
+
+        GameObject obj2 =
+            Instantiate(
+                unitPrefab,
+                tile2.transform.position,
+                Quaternion.identity
+            );
+
+        BattleUnit unit2 =
+            obj2.GetComponent<BattleUnit>();
+
+        unit2.currentTile = tile2;
+        tile2.currentUnit = unit2;
+    }
+
+    public Tile GetBoardTile(int x, int y)
+    {
+        if (x < 0 || x >= boardWidth)
+            return null;
+
+        if (y < 0 || y >= boardHeight)
+            return null;
+
+        return boardTiles[x, y];
+    }
+
+    void SpawnEnemyUnit()
+    {
+        Tile tile = boardTiles[3, 6];
+        GameObject obj = Instantiate(enemyUnitPrefab, tile.transform.position, Quaternion.identity);
+
+        BattleUnit unit = obj.GetComponent<BattleUnit>();
         unit.currentTile = tile;
-
+        unit.isEnemy = true;
         tile.currentUnit = unit;
     }
+
 }

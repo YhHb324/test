@@ -22,7 +22,7 @@ public class Tile : MonoBehaviour
 
     public TileArea tileArea;
 
-    public Unit currentUnit;
+    public BattleUnit currentUnit;
 
     SpriteRenderer spriteRenderer;
 
