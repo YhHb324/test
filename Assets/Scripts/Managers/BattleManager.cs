@@ -1,9 +1,10 @@
 using UnityEngine;
+using System.Collections;
 
 public class BattleManager : MonoBehaviour
 {
     public static BattleManager Instance;
-    public GameState state = GameState.Setup;
+    public GameState state = GameState.Setup1;
 
     public int allyCount = 0;
     public int enemyCount = 0;
@@ -11,6 +12,42 @@ public class BattleManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+    }
+
+    public void NextPhase()
+    {
+        if (state == GameState.Setup1)
+        {
+            state = GameState.Setup2;
+            Debug.Log("→ Setup2");
+
+            EnterSetup2();
+            return;
+        }
+
+        if (state == GameState.Setup2)
+        {
+            StartBattle();
+            return;
+        }
+
+        if (state == GameState.Battle)
+        {
+            // 戦闘中はボタン無効でもOK
+            return;
+        }
+
+        if (state == GameState.End)
+        {
+            state = GameState.Setup1;
+            Debug.Log("→ Setup1");
+            return;
+        }
+    }
+
+    void EnterSetup2()
+    {
+        BoardManager.Instance.SpawnPlayerUnitsToBench();
     }
 
     public void StartBattle()
@@ -117,19 +154,33 @@ public class BattleManager : MonoBehaviour
             ? "PLAYER WIN"
             : "PLAYER LOSE");
 
-        if (playerWin)
-        {
-            BattleUnit[] units =
-                FindObjectsByType<BattleUnit>(
-                    FindObjectsSortMode.None);
+        state = GameState.End;
+        StartCoroutine(EndProcess());
 
-            foreach (BattleUnit unit in units)
+           
+    }
+
+    IEnumerator EndProcess()
+    {
+        
+        yield return new WaitForSeconds(1f);
+
+        //味方生存ユニットを元の場所へもどす
+        BattleUnit[] units = FindObjectsByType<BattleUnit>(FindObjectsSortMode.None);
+
+        foreach (BattleUnit unit in units)
+        {
+            if (!unit.isEnemy)
             {
-                if (!unit.isEnemy)
-                {
-                    unit.ReturnToOriginalTile();
-                }
+                unit.ReturnToOriginalTile();
             }
         }
+
+        yield return new WaitForSeconds(0.5f);
+
+        // ★自動でSetup1へ戻す
+        state = GameState.Setup1;
+
+        Debug.Log("→ Setup1");
     }
 }

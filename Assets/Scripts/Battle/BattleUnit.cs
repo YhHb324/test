@@ -228,13 +228,20 @@ public class BattleUnit : MonoBehaviour
 
     public void ReturnToOriginalTile()
     {
-        currentTile.currentUnit = null;
+        if (originalTile == null)
+        {
+            Debug.Log($"{name}: originalTile is null");
+            return;
+        }
+
+        if (currentTile != null)
+        {
+            currentTile.currentUnit = null;
+        }
 
         currentTile = originalTile;
-
         originalTile.currentUnit = this;
 
-        transform.position =
-            originalTile.transform.position;
+        transform.position = originalTile.transform.position;
     }
 }

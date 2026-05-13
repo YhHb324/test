@@ -2,7 +2,8 @@ using UnityEngine;
 
 public enum GameState
 {
-    Setup,
+    Setup1,
+    Setup2,
     Battle,
     End
 }
