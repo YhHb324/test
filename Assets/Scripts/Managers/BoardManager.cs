@@ -27,7 +27,6 @@ public class BoardManager : MonoBehaviour
     {
         CreateBoard();
         CreateBench();
-        SpawnUnit();
         SpawnEnemyUnit();
     }
 
@@ -42,8 +41,8 @@ public class BoardManager : MonoBehaviour
 
     void HandleMouseInput()
     {
-        if (BattleManager.Instance.state != GameState.Setup)
-                return;
+        if (BattleManager.Instance.state != GameState.Setup1 && BattleManager.Instance.state != GameState.Setup2)
+            return;
 
         Vector3 mouseWorld =
         Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -259,44 +258,6 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    // =========================
-    // Unit生成
-    // =========================
-
-    void SpawnUnit()
-    {
-        Tile tile1 = benchTiles[0];
-
-        GameObject obj1 =
-            Instantiate(
-                unitPrefab,
-                tile1.transform.position,
-                Quaternion.identity
-            );
-
-        BattleUnit unit1 =
-            obj1.GetComponent<BattleUnit>();
-
-        unit1.currentTile = tile1;
-
-        tile1.currentUnit = unit1;
-
-        Tile tile2 = benchTiles[1];
-
-        GameObject obj2 =
-            Instantiate(
-                unitPrefab,
-                tile2.transform.position,
-                Quaternion.identity
-            );
-
-        BattleUnit unit2 =
-            obj2.GetComponent<BattleUnit>();
-
-        unit2.currentTile = tile2;
-        tile2.currentUnit = unit2;
-    }
-
     public Tile GetBoardTile(int x, int y)
     {
         if (x < 0 || x >= boardWidth)
@@ -308,6 +269,26 @@ public class BoardManager : MonoBehaviour
         return boardTiles[x, y];
     }
 
+    public void SpawnPlayerUnitsToBench()
+    {
+        Tile[] bench = benchTiles;
+
+        SpawnOneUnit(bench[0]);
+        SpawnOneUnit(bench[1]);
+    }
+
+    void SpawnOneUnit(Tile tile)
+    {
+        GameObject obj =
+            Instantiate(unitPrefab,
+                tile.transform.position,
+                Quaternion.identity);
+
+        BattleUnit unit = obj.GetComponent<BattleUnit>();
+
+        unit.currentTile = tile;
+        tile.currentUnit = unit;
+    }
     void SpawnEnemyUnit()
     {
         Tile tile = boardTiles[3, 6];
