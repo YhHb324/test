@@ -185,6 +185,7 @@ MonoBehaviour:
   - {fileID: 1192843865154028290, guid: 98e693a7bfa5a5448b3d6391eb37b339, type: 3}
   - {fileID: -1783808350427418317, guid: 059dbd16afdc38a4eb91c3341fb5d135, type: 3}
   - {fileID: -5099292496197868168, guid: f2c09c41a2d20174d9bb03795eb5a556, type: 3}
+  itemCounts: 000000000000000000000000000000000000000000000000
 --- !u!114 &37707011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1279,7 +1280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4447d3bec31dab4fb08c819ab60a1be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DevelopmentManager
-  totalTeams: 30
+  totalTeams: 5
   liquidTeams: 0
   resourceTeams: 0
 --- !u!1 &465297530
@@ -3457,6 +3458,7 @@ GameObject:
   - component: {fileID: 1298684086}
   - component: {fileID: 1298684085}
   - component: {fileID: 1298684084}
+  - component: {fileID: 1298684087}
   m_Layer: 5
   m_Name: BattleButton
   m_TagString: Untagged
@@ -3530,7 +3532,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 561121996}
         m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-        m_MethodName: StartBattle
+        m_MethodName: NextPhase
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3553,7 +3555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8117648, g: 0.8862746, b: 0.95294124, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3578,6 +3580,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1298684082}
   m_CullTransparentMesh: 1
+--- !u!114 &1298684087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298684082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e35ce33e2d13c644b9325bf5946193b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhaseButtonUI
+  text: {fileID: 1343282755}
+  button: {fileID: 1298684084}
 --- !u!1 &1308164037
 GameObject:
   m_ObjectHideFlags: 0
@@ -3909,7 +3925,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u6226\u95D8\u958B\u59CB"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d714ae30088c7b74fb472df7e24841be, type: 2}
   m_sharedMaterial: {fileID: 8122304380337680750, guid: d714ae30088c7b74fb472df7e24841be, type: 2}

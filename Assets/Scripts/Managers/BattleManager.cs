@@ -48,6 +48,7 @@ public class BattleManager : MonoBehaviour
     void EnterSetup2()
     {
         BoardManager.Instance.SpawnPlayerUnitsToBench();
+        FindFirstObjectByType<OwnedItemsUI>().GenerateItems();
     }
 
     public void StartBattle()

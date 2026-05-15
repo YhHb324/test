@@ -271,10 +271,32 @@ public class BoardManager : MonoBehaviour
 
     public void SpawnPlayerUnitsToBench()
     {
-        Tile[] bench = benchTiles;
+        int spawnCount =
+            DevelopmentManager.Instance.liquidTeams;
 
-        SpawnOneUnit(bench[0]);
-        SpawnOneUnit(bench[1]);
+        for (int i = 0; i < spawnCount; i++)
+        {
+            Tile emptyTile = null;
+
+            // 空きベンチ探索
+            foreach (Tile tile in benchTiles)
+            {
+                if (tile.currentUnit == null)
+                {
+                    emptyTile = tile;
+                    break;
+                }
+            }
+
+            // 空きなし
+            if (emptyTile == null)
+            {
+                Debug.Log("Bench Full");
+                return;
+            }
+
+            SpawnOneUnit(emptyTile);
+        }
     }
 
     void SpawnOneUnit(Tile tile)
@@ -289,6 +311,7 @@ public class BoardManager : MonoBehaviour
         unit.currentTile = tile;
         tile.currentUnit = unit;
     }
+
     void SpawnEnemyUnit()
     {
         Tile tile = boardTiles[3, 6];
