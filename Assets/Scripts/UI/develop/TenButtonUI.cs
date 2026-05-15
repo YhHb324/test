@@ -11,6 +11,11 @@ public class TenButtonUI :
         PointerEventData eventData
     )
     {
+        if (BattleManager.Instance.state != GameState.Setup1)
+        {
+            return;
+        }
+
         // 左クリック
         if (
             eventData.button ==

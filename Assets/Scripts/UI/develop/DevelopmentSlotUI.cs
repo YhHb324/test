@@ -17,6 +17,11 @@ public class DevelopmentSlotUI :
         PointerEventData eventData
     )
     {
+        if (BattleManager.Instance.state != GameState.Setup1)
+        {
+            return;
+        }
+
         if (isLiquid)
         {
             liquidSection.ClickSlot(index);
