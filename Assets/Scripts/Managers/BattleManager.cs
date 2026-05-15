@@ -179,6 +179,17 @@ public class BattleManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
+        // 開発値リセット
+        DevelopmentManager.Instance.liquidTeams = 0;
+        DevelopmentManager.Instance.resourceTeams = 0;
+
+        // UI更新
+        FindFirstObjectByType<LiquidSectionUI>()
+            .Refresh();
+
+        FindFirstObjectByType<ResourceSectionUI>()
+            .Refresh();
+
         // ★自動でSetup1へ戻す
         state = GameState.Setup1;
 

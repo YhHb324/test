@@ -61,6 +61,8 @@ public class BoardManager : MonoBehaviour
 
                 if (unit != null)
                 {
+                    if (unit.isEnemy)
+                        return;
                     draggingUnit = unit;
 
                     dragOffset =

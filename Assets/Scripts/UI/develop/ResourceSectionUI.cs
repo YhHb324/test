@@ -69,6 +69,8 @@ public class ResourceSectionUI : MonoBehaviour
                 slots[i].color = disableColor;
             }
         }
+
+        countText.text = DevelopmentManager.Instance.resourceTeams + "/" + DevelopmentManager.Instance.totalTeams;
     }
 
     void RefreshAll()

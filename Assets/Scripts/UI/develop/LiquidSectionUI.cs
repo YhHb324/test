@@ -135,6 +135,12 @@ public class LiquidSectionUI : MonoBehaviour
             tenButtonImage.sprite =
                 tenButtonSprites[tens];
         }
+
+        // ★追加
+        countText.text =
+            DevelopmentManager.Instance.liquidTeams
+            + "/"
+            + DevelopmentManager.Instance.totalTeams;
     }
 
     void RefreshAll()
