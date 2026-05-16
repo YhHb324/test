@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af31ac066520e0140a19c3e70c914290, type: 3}
+  m_Name: I001_GelPack
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  itemName: "\u30B2\u30EB\u30D1\u30C3\u30AF"
+  icon: {fileID: 2999192809883709135, guid: 058a9aaff2c9ab74d8751224c066aac2, type: 3}
+  hpBonus: 50
+  attackBonus: 0
+  rangeBonus: 0
+  attackSpeedBonus: 0
+  defenseBonus: 0
+  moveSpeedBonus: 0

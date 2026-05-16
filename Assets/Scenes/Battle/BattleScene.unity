@@ -178,13 +178,13 @@ MonoBehaviour:
   - {fileID: 1816329842}
   - {fileID: 321279932}
   - {fileID: 411187880}
-  itemIcons:
-  - {fileID: 2999192809883709135, guid: 058a9aaff2c9ab74d8751224c066aac2, type: 3}
-  - {fileID: 5376995226419659935, guid: 44c46e01adafe554d87fb515ac1813cd, type: 3}
-  - {fileID: -8038976213705442086, guid: 572d55e0eb1d3d84d95c743abc542feb, type: 3}
-  - {fileID: 1192843865154028290, guid: 98e693a7bfa5a5448b3d6391eb37b339, type: 3}
-  - {fileID: -1783808350427418317, guid: 059dbd16afdc38a4eb91c3341fb5d135, type: 3}
-  - {fileID: -5099292496197868168, guid: f2c09c41a2d20174d9bb03795eb5a556, type: 3}
+  itemDatas:
+  - {fileID: 11400000, guid: 8a33a76a3952d61498e66ac160f52514, type: 2}
+  - {fileID: 11400000, guid: 01c1de74ee7752448a82d2f1e7f7d942, type: 2}
+  - {fileID: 11400000, guid: 3cca4b79da3ab3641a22e94eb83f64d6, type: 2}
+  - {fileID: 11400000, guid: e0a432c453b13394c9e29d420cbc9db8, type: 2}
+  - {fileID: 11400000, guid: f3b6b112e3b1c494f90997d24126d410, type: 2}
+  - {fileID: 11400000, guid: 147d0bf49c6605540a6208f84fe11d1e, type: 2}
   itemCounts: 000000000000000000000000000000000000000000000000
 --- !u!114 &37707011
 MonoBehaviour:
@@ -443,6 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f6d037863e72704f87b684d965e4048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlotUI
+  itemData: {fileID: 11400000, guid: 3cca4b79da3ab3641a22e94eb83f64d6, type: 2}
   iconImage: {fileID: 387532178}
   countText: {fileID: 1308164039}
   ownedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -740,6 +741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f6d037863e72704f87b684d965e4048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlotUI
+  itemData: {fileID: 11400000, guid: f3b6b112e3b1c494f90997d24126d410, type: 2}
   iconImage: {fileID: 553068589}
   countText: {fileID: 1111861246}
   ownedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -909,6 +911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f6d037863e72704f87b684d965e4048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlotUI
+  itemData: {fileID: 11400000, guid: 147d0bf49c6605540a6208f84fe11d1e, type: 2}
   iconImage: {fileID: 1655318808}
   countText: {fileID: 309204938}
   ownedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -1550,6 +1553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f6d037863e72704f87b684d965e4048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlotUI
+  itemData: {fileID: 11400000, guid: 8a33a76a3952d61498e66ac160f52514, type: 2}
   iconImage: {fileID: 182858863}
   countText: {fileID: 1216768415}
   ownedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -1736,6 +1740,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f6d037863e72704f87b684d965e4048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlotUI
+  itemData: {fileID: 11400000, guid: 01c1de74ee7752448a82d2f1e7f7d942, type: 2}
   iconImage: {fileID: 2056952200}
   countText: {fileID: 1888900744}
   ownedColor: {r: 1, g: 1, b: 1, a: 1}
@@ -4380,6 +4385,7 @@ MonoBehaviour:
   boardWidth: 7
   boardHeight: 8
   maxBoardUnits: 3
+  draggingItem: {fileID: 0}
 --- !u!4 &1476170618
 Transform:
   m_ObjectHideFlags: 0
@@ -5128,6 +5134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f6d037863e72704f87b684d965e4048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemSlotUI
+  itemData: {fileID: 11400000, guid: e0a432c453b13394c9e29d420cbc9db8, type: 2}
   iconImage: {fileID: 1970091656}
   countText: {fileID: 444074100}
   ownedColor: {r: 1, g: 1, b: 1, a: 1}

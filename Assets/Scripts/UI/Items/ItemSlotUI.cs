@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class ItemSlotUI : MonoBehaviour
 {
+    public ItemData itemData;
     public Image iconImage;
     public TMP_Text countText;
 
@@ -12,12 +14,11 @@ public class ItemSlotUI : MonoBehaviour
     public Color unownedColor =
         new Color(0.3f, 0.3f, 0.3f, 1f);
 
-    public void SetItem(
-        Sprite icon,
-        int count
-    )
+    public void SetItem(ItemData data, int count)
     {
-        iconImage.sprite = icon;
+        itemData = data;
+
+        iconImage.sprite = data.icon;
 
         // 未所持
         if (count <= 0)
@@ -40,5 +41,29 @@ public class ItemSlotUI : MonoBehaviour
                 countText.gameObject.SetActive(false);
             }
         }
+    }
+
+    void OnMouseDown()
+    {
+        if (itemData == null)
+            return;
+
+        OwnedItemsUI owner =
+            FindFirstObjectByType<OwnedItemsUI>();
+
+        int index =
+            System.Array.IndexOf(
+                owner.slots,
+                this);
+
+        if (owner.itemCounts[index] <= 0)
+            return;
+
+        BoardManager.Instance.draggingItem =
+            itemData;
+
+        Debug.Log(
+            "Dragging " +
+            itemData.itemName);
     }
 }
