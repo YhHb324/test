@@ -13,6 +13,8 @@ public class BoardManager : MonoBehaviour
 
     public int maxBoardUnits = 3;
 
+    public ItemData draggingItem;
+
     Tile[,] boardTiles;
     Tile[] benchTiles;
 
@@ -90,7 +92,14 @@ public class BoardManager : MonoBehaviour
             Input.GetMouseButtonUp(0)
         )
         {
-            DropUnit(mouseWorld);
+            if (draggingItem != null)
+            {
+                DropItem(mouseWorld);
+            }
+            else
+            {
+                DropUnit(mouseWorld);
+            }
         }
     }
 
@@ -210,6 +219,62 @@ public class BoardManager : MonoBehaviour
         draggingUnit = null;
     }
 
+    void DropItem(Vector3 mouseWorld)
+    {
+        Collider2D[] hits =
+            Physics2D.OverlapPointAll(mouseWorld);
+
+        foreach (Collider2D hit in hits)
+        {
+            BattleUnit unit =
+                hit.GetComponent<BattleUnit>();
+
+            if (unit == null)
+                continue;
+
+            if (unit.isEnemy)
+                continue;
+
+            for (int i = 0; i < unit.items.Length; i++)
+            {
+                if (unit.items[i] == null)
+                {
+                    unit.items[i] =
+                        draggingItem;
+
+                    unit.RefreshStats();
+
+                    OwnedItemsUI owner =
+                        FindFirstObjectByType<OwnedItemsUI>();
+
+                    int itemIndex =
+                        System.Array.IndexOf(
+                            owner.itemDatas,
+                            draggingItem);
+
+                    owner.itemCounts[itemIndex]--;
+
+                    owner.Refresh();
+
+                    Debug.Log(
+                        "Equipped " +
+                        draggingItem.itemName);
+
+                    draggingItem = null;
+
+                    return;
+                }
+            }
+
+            Debug.Log("Item Full");
+
+            draggingItem = null;
+
+            return;
+        }
+
+        draggingItem = null;
+    }
     // =========================
     // Board生成
     // =========================

@@ -166,11 +166,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleUnit
   isEnemy: 0
-  hp: 50
-  attack: 20
-  range: 1
-  attackInterval: 1
-  moveDuration: 0.5
+  baseHP: 0
+  data: {fileID: 11400000, guid: 51b191e54572c0943aff3f98a62109d5, type: 2}
+  hp: 0
+  attack: 0
+  range: 0
+  attackSpeed: 0
+  defense: 0
+  moveSpeed: 0
   currentTile: {fileID: 0}
   isOnBench: 1
   isDead: 0

@@ -4,7 +4,7 @@ public class OwnedItemsUI : MonoBehaviour
 {
     public ItemSlotUI[] slots;
 
-    public Sprite[] itemIcons;
+    public ItemData[] itemDatas;
 
     // 仮データ
     public int[] itemCounts =
@@ -43,10 +43,7 @@ public class OwnedItemsUI : MonoBehaviour
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            slots[i].SetItem(
-                itemIcons[i],
-                itemCounts[i]
-            );
+            slots[i].SetItem( itemDatas[i], itemCounts[i] );
         }
     }
 }

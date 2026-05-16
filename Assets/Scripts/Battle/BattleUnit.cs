@@ -6,13 +6,22 @@ public class BattleUnit : MonoBehaviour
     public bool isEnemy;
 
     public int baseHP;
-    public int hp = 100;
-    public int attack = 20;
 
-    public int range = 1;
+    public UnitData data;
 
-    public float attackInterval = 1f;
-    public float moveDuration = 0.5f;
+    public int hp;
+
+    public int attack;
+
+    public int range;
+
+    public float attackSpeed;
+
+    public int defense;
+
+    public float moveSpeed;
+
+    public ItemData[] items = new ItemData[3];
 
     public Tile currentTile;
 
@@ -23,7 +32,7 @@ public class BattleUnit : MonoBehaviour
 
     void Start()
     {
-        baseHP = hp;
+        RefreshStats();
     }
 
     public void StartAI()
@@ -34,6 +43,39 @@ public class BattleUnit : MonoBehaviour
     public void StopAI()
     {
         StopAllCoroutines();
+    }
+
+    public void RefreshStats()
+    {
+        hp = data.hp;
+
+        attack = data.attack;
+
+        range = data.range;
+
+        attackSpeed = data.attackSpeed;
+
+        defense = data.defense;
+
+        moveSpeed = data.moveSpeed;
+
+        foreach (ItemData item in items)
+        {
+            if (item == null)
+                continue;
+
+            hp += item.hpBonus;
+
+            attack += item.attackBonus;
+
+            range += item.rangeBonus;
+
+            attackSpeed += item.attackSpeedBonus;
+
+            defense += item.defenseBonus;
+
+            moveSpeed += item.moveSpeedBonus;
+        }
     }
 
     public void SetBattleStartTile()
@@ -69,7 +111,7 @@ public class BattleUnit : MonoBehaviour
                 Attack(target);
 
                 yield return
-                    new WaitForSeconds(attackInterval);
+                    new WaitForSeconds(1f/ attackSpeed);
             }
             else
             {
@@ -221,7 +263,7 @@ public class BattleUnit : MonoBehaviour
 
         float time = 0f;
 
-        while (time < moveDuration)
+        while (time < 1f/moveSpeed)
         {
             time += Time.deltaTime;
 
@@ -229,7 +271,7 @@ public class BattleUnit : MonoBehaviour
                 Vector3.Lerp(
                     start,
                     end,
-                    time / moveDuration);
+                    time / (1f/moveSpeed));
 
             yield return null;
         }
