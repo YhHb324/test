@@ -5,6 +5,7 @@ public class BattleUnit : MonoBehaviour
 {
     public bool isEnemy;
 
+    public int baseHP;
     public int hp = 100;
     public int attack = 20;
 
@@ -20,9 +21,19 @@ public class BattleUnit : MonoBehaviour
     public bool isOnBench = true;
     public bool isDead = false;
 
+    void Start()
+    {
+        baseHP = hp;
+    }
+
     public void StartAI()
     {
         StartCoroutine(AILoop());
+    }
+
+    public void StopAI()
+    {
+        StopAllCoroutines();
     }
 
     public void SetBattleStartTile()
@@ -243,5 +254,7 @@ public class BattleUnit : MonoBehaviour
         originalTile.currentUnit = this;
 
         transform.position = originalTile.transform.position;
+
+        hp = baseHP;
     }
 }

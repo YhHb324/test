@@ -11,6 +11,8 @@ public class BoardManager : MonoBehaviour
     public int boardWidth = 7;
     public int boardHeight = 8;
 
+    public int maxBoardUnits = 3;
+
     Tile[,] boardTiles;
     Tile[] benchTiles;
 
@@ -27,7 +29,7 @@ public class BoardManager : MonoBehaviour
     {
         CreateBoard();
         CreateBench();
-        SpawnEnemyUnit();
+        StageManager.Instance.SpawnStageEnemy();
     }
 
     void Update()
@@ -130,26 +132,65 @@ public class BoardManager : MonoBehaviour
             return;
         }
 
-        // 埋まってる
+        BattleUnit otherUnit = null;
+
+        // 既にユニットがいる
         if (
             targetTile.currentUnit != null &&
             targetTile.currentUnit != draggingUnit
         )
         {
+            otherUnit = targetTile.currentUnit;
+
+            // 敵は交換不可
+            if (otherUnit.isEnemy)
+            {
+                ReturnUnit();
+                return;
+            }
+        }
+
+        Tile oldTile =
+             draggingUnit.currentTile;
+
+        // 入れ替え時
+        if (otherUnit != null)
+        {
+            oldTile.currentUnit = otherUnit;
+
+            otherUnit.currentTile = oldTile;
+
+            otherUnit.transform.position =
+                oldTile.transform.position;
+        }
+        else
+        {
+            oldTile.currentUnit = null;
+        }
+
+        bool movingToBoard = targetTile.tileType
+            == TileType.Board;
+
+        bool cameFromBench = draggingUnit.currentTile.tileType
+            == TileType.Bench;
+
+        if (
+            movingToBoard &&
+            cameFromBench &&
+            CurrentBoardUnitCount() >= maxBoardUnits
+        )
+        {
+            Debug.Log("Board Full");
+
             ReturnUnit();
+
             return;
         }
 
-        // 元タイル空に
-        draggingUnit.currentTile.currentUnit =
-            null;
-
         // 新タイル
-        draggingUnit.currentTile =
-            targetTile;
+        draggingUnit.currentTile = targetTile;
 
-        targetTile.currentUnit =
-            draggingUnit;
+        targetTile.currentUnit = draggingUnit;
 
         draggingUnit.transform.position =
             targetTile.transform.position;
@@ -225,6 +266,35 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    int CurrentBoardUnitCount()
+    {
+        int count = 0;
+
+        BattleUnit[] units =
+            FindObjectsByType<BattleUnit>(
+                FindObjectsSortMode.None);
+
+        foreach (BattleUnit unit in units)
+        {
+            if (unit == null)
+                continue;
+
+            if (unit.isEnemy)
+                continue;
+
+            if (unit.currentTile == null)
+                continue;
+
+            if (unit.currentTile.tileType
+                != TileType.Board)
+                continue;
+
+            count++;
+        }
+
+        return count;
+    }
+
     // =========================
     // Bench生成
     // =========================
@@ -294,7 +364,7 @@ public class BoardManager : MonoBehaviour
             if (emptyTile == null)
             {
                 Debug.Log("Bench Full");
-                return;
+                break;
             }
 
             SpawnOneUnit(emptyTile);
@@ -314,14 +384,38 @@ public class BoardManager : MonoBehaviour
         tile.currentUnit = unit;
     }
 
-    void SpawnEnemyUnit()
+    public void SpawnStageEnemy(int stage)
     {
-        Tile tile = boardTiles[3, 6];
-        GameObject obj = Instantiate(enemyUnitPrefab, tile.transform.position, Quaternion.identity);
+        Tile tile = null;
 
-        BattleUnit unit = obj.GetComponent<BattleUnit>();
+        if (stage == 0)
+        {
+            tile = boardTiles[3, 6];
+        }
+        else if (stage == 1)
+        {
+            tile = boardTiles[2, 6];
+        }
+        else if (stage == 2)
+        {
+            tile = boardTiles[4, 6];
+        }
+
+        if (tile == null)
+            return;
+
+        GameObject obj =
+            Instantiate(
+                enemyUnitPrefab,
+                tile.transform.position,
+                Quaternion.identity);
+
+        BattleUnit unit =
+            obj.GetComponent<BattleUnit>();
+
         unit.currentTile = tile;
         unit.isEnemy = true;
+
         tile.currentUnit = unit;
     }
 
