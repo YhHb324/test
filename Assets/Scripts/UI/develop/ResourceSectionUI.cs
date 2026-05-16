@@ -70,7 +70,7 @@ public class ResourceSectionUI : MonoBehaviour
             }
         }
 
-        countText.text = DevelopmentManager.Instance.resourceTeams + "/" + DevelopmentManager.Instance.totalTeams;
+        countText.text = DevelopmentManager.Instance.resourceTeams + "/5";
     }
 
     void RefreshAll()

@@ -155,10 +155,15 @@ public class BattleManager : MonoBehaviour
             ? "PLAYER WIN"
             : "PLAYER LOSE");
 
-        state = GameState.End;
-        StartCoroutine(EndProcess());
+        // 勝利時だけステージ進行
+        if (playerWin)
+        {
+            StageManager.Instance.OnPlayerWin();
+        }
 
-           
+        state = GameState.End;
+
+        StartCoroutine(EndProcess());
     }
 
     IEnumerator EndProcess()
@@ -171,9 +176,23 @@ public class BattleManager : MonoBehaviour
 
         foreach (BattleUnit unit in units)
         {
+            unit.StopAI();
+        }
+
+        foreach (BattleUnit unit in units)
+        {
             if (!unit.isEnemy)
             {
                 unit.ReturnToOriginalTile();
+            }
+        }
+
+        // 敵削除
+        foreach (BattleUnit unit in units)
+        {
+            if (unit.isEnemy)
+            {
+                Destroy(unit.gameObject);
             }
         }
 
@@ -190,7 +209,10 @@ public class BattleManager : MonoBehaviour
         FindFirstObjectByType<ResourceSectionUI>()
             .Refresh();
 
-        // ★自動でSetup1へ戻す
+        // 次ステージ敵生成
+        StageManager.Instance.SpawnStageEnemy();
+
+        // 自動でSetup1へ戻す
         state = GameState.Setup1;
 
         Debug.Log("→ Setup1");

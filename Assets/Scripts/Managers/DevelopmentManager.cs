@@ -38,5 +38,8 @@ public class DevelopmentManager : MonoBehaviour
 
         // 部隊追加
         totalTeams += addTeams;
+
+        FindFirstObjectByType<TotalTeamsUI>()
+        .Refresh();
     }
 }
