@@ -249,11 +249,16 @@ public class BattleUnit : MonoBehaviour
 
     IEnumerator MoveTo(Tile tile)
     {
-        currentTile.currentUnit = null;
+        Tile oldTile = currentTile;
 
-        tile.currentUnit = this;
+        if (oldTile.currentUnit == this)
+        {
+            oldTile.currentUnit = null;
+        }
 
         currentTile = tile;
+
+        currentTile.currentUnit = this;
 
         Vector3 start =
             transform.position;
@@ -289,7 +294,10 @@ public class BattleUnit : MonoBehaviour
 
         if (currentTile != null)
         {
-            currentTile.currentUnit = null;
+            if (currentTile.currentUnit == this)
+            {
+                currentTile.currentUnit = null;
+            }
         }
 
         currentTile = originalTile;
@@ -297,6 +305,6 @@ public class BattleUnit : MonoBehaviour
 
         transform.position = originalTile.transform.position;
 
-        hp = baseHP;
+        RefreshStats();
     }
 }

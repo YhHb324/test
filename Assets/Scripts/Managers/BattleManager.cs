@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BattleManager : MonoBehaviour
 {
@@ -188,12 +189,24 @@ public class BattleManager : MonoBehaviour
         }
 
         // 敵削除
+        List<BattleUnit> enemies = new List<BattleUnit>();
+
         foreach (BattleUnit unit in units)
         {
             if (unit.isEnemy)
             {
-                Destroy(unit.gameObject);
+                enemies.Add(unit);
             }
+        }
+
+        foreach (BattleUnit enemy in enemies)
+        {
+            if (enemy.currentTile != null)
+            {
+                enemy.currentTile.currentUnit = null;
+            }
+
+            Destroy(enemy.gameObject);
         }
 
         yield return new WaitForSeconds(0.5f);
@@ -208,6 +221,8 @@ public class BattleManager : MonoBehaviour
 
         FindFirstObjectByType<ResourceSectionUI>()
             .Refresh();
+
+        yield return null;
 
         // 次ステージ敵生成
         StageManager.Instance.SpawnStageEnemy();
