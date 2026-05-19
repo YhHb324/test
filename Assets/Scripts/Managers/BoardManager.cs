@@ -334,8 +334,6 @@ public class BoardManager : MonoBehaviour
         );
 
         rect.localPosition = localPos;
-
-        Debug.Log(Input.mousePosition);
     }
 
     // =========================
@@ -512,39 +510,60 @@ public class BoardManager : MonoBehaviour
         tile.currentUnit = unit;
     }
 
-    public void SpawnStageEnemy(int stage)
+    public void SpawnStageEnemies()
     {
-        Tile tile = null;
+        StageData stage =
+            StageManager.Instance.CurrentStage();
 
-        if (stage == 0)
+        Debug.Log(stage.enemies.Length);
+
+        foreach (EnemySpawnData enemy
+            in stage.enemies)
         {
-            tile = boardTiles[3, 6];
+
+            if (enemy == null)
+            {
+                Debug.Log("Enemy Null");
+                continue;
+            }
+
+            if (enemy.unitData == null)
+            {
+                Debug.Log("UnitData Null");
+                continue;
+            }
+
+            Tile tile =
+                GetBoardTile(enemy.x, enemy.y);
+
+            if (tile == null)
+                continue;
+
+            if (tile.currentUnit != null)
+            {
+                Debug.Log("Tile Occupied");
+                continue;
+            }
+
+            GameObject obj =
+                Instantiate(
+                    enemyUnitPrefab,
+                    tile.transform.position,
+                    Quaternion.identity);
+
+            BattleUnit unit =
+                obj.GetComponent<BattleUnit>();
+
+            unit.data = enemy.unitData;
+
+            unit.currentTile = tile;
+
+            unit.isEnemy = true;
+
+            tile.currentUnit = unit;
+
+            
         }
-        else if (stage == 1)
-        {
-            tile = boardTiles[2, 6];
-        }
-        else if (stage == 2)
-        {
-            tile = boardTiles[4, 6];
-        }
-
-        if (tile == null)
-            return;
-
-        GameObject obj =
-            Instantiate(
-                enemyUnitPrefab,
-                tile.transform.position,
-                Quaternion.identity);
-
-        BattleUnit unit =
-            obj.GetComponent<BattleUnit>();
-
-        unit.currentTile = tile;
-        unit.isEnemy = true;
-
-        tile.currentUnit = unit;
     }
 
 }

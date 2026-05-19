@@ -22,6 +22,7 @@ public class Tile : MonoBehaviour
 
     public TileArea tileArea;
 
+    [System.NonSerialized]
     public BattleUnit currentUnit;
 
     SpriteRenderer spriteRenderer;

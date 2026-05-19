@@ -3723,7 +3723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd53e365cdd8873468fe519f3bf4e0dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageManager
-  currentStage: 0
+  currentWorld: {fileID: 11400000, guid: 2aa0a6e435bf9544caeee6548c877f40, type: 2}
 --- !u!1 &1298684082
 GameObject:
   m_ObjectHideFlags: 0
