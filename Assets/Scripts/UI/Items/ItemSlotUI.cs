@@ -3,10 +3,14 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class ItemSlotUI : MonoBehaviour
+public class ItemSlotUI :
+    MonoBehaviour,
+    IPointerDownHandler
 {
     public ItemData itemData;
+
     public Image iconImage;
+
     public TMP_Text countText;
 
     public Color ownedColor = Color.white;
@@ -14,13 +18,19 @@ public class ItemSlotUI : MonoBehaviour
     public Color unownedColor =
         new Color(0.3f, 0.3f, 0.3f, 1f);
 
-    public void SetItem(ItemData data, int count)
+    int currentCount;
+
+    public void SetItem(
+        ItemData data,
+        int count
+    )
     {
         itemData = data;
 
+        currentCount = count;
+
         iconImage.sprite = data.icon;
 
-        // 未所持
         if (count <= 0)
         {
             iconImage.color = unownedColor;
@@ -30,40 +40,45 @@ public class ItemSlotUI : MonoBehaviour
         {
             iconImage.color = ownedColor;
 
-            // 2個以上なら表示
-            if (count >= 2)
-            {
-                countText.gameObject.SetActive(true);
-                countText.text = "×" + count;
-            }
-            else
-            {
-                countText.gameObject.SetActive(false);
-            }
+            countText.gameObject.SetActive(true);
+            countText.text = "×" + count;
         }
     }
 
-    void OnMouseDown()
+    public void OnPointerDown(
+        PointerEventData eventData
+    )
     {
+        // Setup時のみ
+        if (
+            BattleManager.Instance.state
+            != GameState.Setup1
+            &&
+            BattleManager.Instance.state
+            != GameState.Setup2
+        )
+        {
+            return;
+        }
+
         if (itemData == null)
             return;
 
-        OwnedItemsUI owner =
-            FindFirstObjectByType<OwnedItemsUI>();
-
-        int index =
-            System.Array.IndexOf(
-                owner.slots,
-                this);
-
-        if (owner.itemCounts[index] <= 0)
+        if (currentCount <= 0)
             return;
 
         BoardManager.Instance.draggingItem =
             itemData;
 
+        BoardManager.Instance.dragItemIcon.sprite =
+            itemData.icon;
+
+        BoardManager.Instance.dragItemIcon.enabled =
+            true;
+
         Debug.Log(
-            "Dragging " +
-            itemData.itemName);
+            "Dragging : " +
+            itemData.itemName
+        );
     }
 }

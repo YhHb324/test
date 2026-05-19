@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BoardManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class BoardManager : MonoBehaviour
     public int maxBoardUnits = 3;
 
     public ItemData draggingItem;
+    public Image dragItemIcon;
 
     Tile[,] boardTiles;
     Tile[] benchTiles;
@@ -37,6 +39,8 @@ public class BoardManager : MonoBehaviour
     void Update()
     {
         HandleMouseInput();
+
+        UpdateDragItemIcon();
     }
 
     // =========================
@@ -46,10 +50,28 @@ public class BoardManager : MonoBehaviour
     void HandleMouseInput()
     {
         if (BattleManager.Instance.state != GameState.Setup1 && BattleManager.Instance.state != GameState.Setup2)
+        {
             return;
+        }
 
         Vector3 mouseWorld =
-        Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        mouseWorld.z = 0;
+
+        // =========================
+        // Itemドラッグ中
+        // =========================
+
+        if (draggingItem != null)
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                DropItem(mouseWorld);
+            }
+
+            return;
+        }
 
         mouseWorld.z = 0;
 
@@ -92,14 +114,7 @@ public class BoardManager : MonoBehaviour
             Input.GetMouseButtonUp(0)
         )
         {
-            if (draggingItem != null)
-            {
-                DropItem(mouseWorld);
-            }
-            else
-            {
-                DropUnit(mouseWorld);
-            }
+            DropUnit(mouseWorld);
         }
     }
 
@@ -221,60 +236,108 @@ public class BoardManager : MonoBehaviour
 
     void DropItem(Vector3 mouseWorld)
     {
-        Collider2D[] hits =
-            Physics2D.OverlapPointAll(mouseWorld);
+        Collider2D hit =
+            Physics2D.OverlapPoint(mouseWorld);
 
-        foreach (Collider2D hit in hits)
+        if (hit == null)
         {
-            BattleUnit unit =
-                hit.GetComponent<BattleUnit>();
-
-            if (unit == null)
-                continue;
-
-            if (unit.isEnemy)
-                continue;
-
-            for (int i = 0; i < unit.items.Length; i++)
-            {
-                if (unit.items[i] == null)
-                {
-                    unit.items[i] =
-                        draggingItem;
-
-                    unit.RefreshStats();
-
-                    OwnedItemsUI owner =
-                        FindFirstObjectByType<OwnedItemsUI>();
-
-                    int itemIndex =
-                        System.Array.IndexOf(
-                            owner.itemDatas,
-                            draggingItem);
-
-                    owner.itemCounts[itemIndex]--;
-
-                    owner.Refresh();
-
-                    Debug.Log(
-                        "Equipped " +
-                        draggingItem.itemName);
-
-                    draggingItem = null;
-
-                    return;
-                }
-            }
-
-            Debug.Log("Item Full");
-
+            dragItemIcon.enabled = false;
             draggingItem = null;
-
             return;
         }
 
+        BattleUnit unit =
+            hit.GetComponent<BattleUnit>();
+
+        if (unit == null)
+        {
+            dragItemIcon.enabled = false;
+            draggingItem = null;
+            return;
+        }
+
+        if (unit.isEnemy)
+        {
+            dragItemIcon.enabled = false;
+            draggingItem = null;
+            return;
+        }
+
+        // 空きスロット探索
+        for (int i = 0; i < unit.items.Length; i++)
+        {
+            if (unit.items[i] == null)
+            {
+                unit.items[i] = draggingItem;
+
+                unit.RefreshStats();
+
+                OwnedItemsUI itemsUI =
+                    FindFirstObjectByType<OwnedItemsUI>();
+
+                int index =
+                    System.Array.IndexOf(
+                        itemsUI.itemDatas,
+                        draggingItem);
+
+                if (index >= 0)
+                {
+                    itemsUI.itemCounts[index]--;
+
+                    itemsUI.Refresh();
+                }
+
+                Debug.Log(
+                    unit.name +
+                    " equipped " +
+                    draggingItem.itemName
+                );
+
+                dragItemIcon.enabled = false;
+                draggingItem = null;
+
+                return;
+            }
+        }
+
+        Debug.Log("Item Full");
+
+        dragItemIcon.enabled = false;
         draggingItem = null;
     }
+
+    void UpdateDragItemIcon()
+    {
+
+        if (dragItemIcon == null)
+        {
+            return;
+        }
+
+        if (draggingItem == null)
+        {
+            return;
+        }
+
+        RectTransform rect = dragItemIcon.rectTransform;
+
+        Canvas canvas =
+            dragItemIcon.canvas;
+
+        Vector2 localPos;
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvas.transform as RectTransform,
+            Input.mousePosition,
+            canvas.worldCamera,
+            out localPos
+        );
+
+        rect.localPosition = localPos;
+
+        Debug.Log(Input.mousePosition);
+    }
+
     // =========================
     // Board生成
     // =========================
