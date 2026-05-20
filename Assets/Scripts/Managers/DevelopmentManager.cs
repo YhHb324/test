@@ -5,7 +5,7 @@ public class DevelopmentManager : MonoBehaviour
     public static DevelopmentManager Instance;
 
     // 総部隊数
-    public int totalTeams = 20;
+    public int totalTeams = 5;
 
     // 液体管理
     public int liquidTeams = 0;
@@ -33,13 +33,17 @@ public class DevelopmentManager : MonoBehaviour
     // 次ステージ
     public void NextStage(int addTeams)
     {
-        // 資源調達は消える
-        resourceTeams = 0;
+        totalTeams -= resourceTeams;
 
-        // 部隊追加
         totalTeams += addTeams;
 
         FindFirstObjectByType<TotalTeamsUI>()
-        .Refresh();
+            .Refresh();
+
+        FindFirstObjectByType<LiquidSectionUI>()
+            .Refresh();
+
+        FindFirstObjectByType<ResourceSectionUI>()
+            .Refresh();
     }
 }

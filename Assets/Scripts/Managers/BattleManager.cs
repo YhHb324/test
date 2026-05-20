@@ -211,21 +211,23 @@ public class BattleManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        // 開発値リセット
+        yield return null;
+
+        // 次ステージ敵生成
+        StageManager.Instance.SpawnStageEnemy();
+
+
         DevelopmentManager.Instance.liquidTeams = 0;
         DevelopmentManager.Instance.resourceTeams = 0;
 
-        // UI更新
         FindFirstObjectByType<LiquidSectionUI>()
             .Refresh();
 
         FindFirstObjectByType<ResourceSectionUI>()
             .Refresh();
 
-        yield return null;
-
-        // 次ステージ敵生成
-        StageManager.Instance.SpawnStageEnemy();
+        FindFirstObjectByType<TotalTeamsUI>()
+            .Refresh();
 
         // 自動でSetup1へ戻す
         state = GameState.Setup1;

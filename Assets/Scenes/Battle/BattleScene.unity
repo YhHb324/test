@@ -3723,7 +3723,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd53e365cdd8873468fe519f3bf4e0dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StageManager
-  currentWorld: {fileID: 11400000, guid: 2aa0a6e435bf9544caeee6548c877f40, type: 2}
+  worlds:
+  - {fileID: 11400000, guid: 2aa0a6e435bf9544caeee6548c877f40, type: 2}
+  - {fileID: 11400000, guid: 1b2bd23a9cb048f4a86e5993ed1542a3, type: 2}
+  currentWorldIndex: 0
+  currentStageIndex: 0
 --- !u!1 &1298684082
 GameObject:
   m_ObjectHideFlags: 0
@@ -4460,7 +4464,6 @@ MonoBehaviour:
   enemyUnitPrefab: {fileID: 373273831549787193, guid: 6230e4ac30c4b7a4390c1c8d18d42559, type: 3}
   boardWidth: 7
   boardHeight: 8
-  maxBoardUnits: 3
   draggingItem: {fileID: 0}
   dragItemIcon: {fileID: 595289573}
 --- !u!4 &1476170618
