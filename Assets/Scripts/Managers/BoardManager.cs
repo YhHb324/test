@@ -12,8 +12,6 @@ public class BoardManager : MonoBehaviour
     public int boardWidth = 7;
     public int boardHeight = 8;
 
-    public int maxBoardUnits = 3;
-
     public ItemData draggingItem;
     public Image dragItemIcon;
 
@@ -201,7 +199,7 @@ public class BoardManager : MonoBehaviour
         if (
             movingToBoard &&
             cameFromBench &&
-            CurrentBoardUnitCount() >= maxBoardUnits
+            CurrentBoardUnitCount() >= StageManager.Instance.CurrentWorld().maxBoardUnits
         )
         {
             Debug.Log("Board Full");

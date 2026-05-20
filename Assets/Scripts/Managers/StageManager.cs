@@ -4,48 +4,63 @@ public class StageManager : MonoBehaviour
 {
     public static StageManager Instance;
 
-    public WorldData currentWorld;
+    public WorldData[] worlds;
 
-    int currentStageIndex = 0;
+    public int currentWorldIndex = 0;
+
+    public int currentStageIndex = 0;
 
     void Awake()
     {
         Instance = this;
     }
 
-    // 現在ステージ取得
+    public WorldData CurrentWorld()
+    {
+        return worlds[currentWorldIndex];
+    }
+
     public StageData CurrentStage()
     {
-        return currentWorld.stages[
-            currentStageIndex];
+        return CurrentWorld().stages[currentStageIndex];
     }
 
-    // 勝利時
     public void OnPlayerWin()
     {
-        // 次ステージへ
         currentStageIndex++;
 
-        // 最終ステージ超え防止
+        // Worldクリア
         if (
             currentStageIndex >=
-            currentWorld.stages.Length
+            CurrentWorld().stages.Length
         )
         {
-            currentStageIndex =
-                currentWorld.stages.Length - 1;
+            // 最後のWorld
+            if (
+                currentWorldIndex >=
+                worlds.Length - 1
+            )
+            {
+                Debug.Log("GAME CLEAR");
 
-            Debug.Log("WORLD CLEAR");
+                currentStageIndex =
+                    CurrentWorld().stages.Length - 1;
+
+                return;
+            }
+
+            // 次Worldへ
+            currentWorldIndex++;
+
+            currentStageIndex = 0;
+
+            Debug.Log("NEXT WORLD");
         }
 
-        // 開発部隊+1
-        DevelopmentManager.Instance.totalTeams++;
 
-        FindFirstObjectByType<TotalTeamsUI>()
-            .Refresh();
+        DevelopmentManager.Instance.NextStage(1);
     }
 
-    // 敵生成
     public void SpawnStageEnemy()
     {
         BoardManager.Instance
