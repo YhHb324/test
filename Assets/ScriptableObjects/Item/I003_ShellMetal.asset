@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: I003_ShellMetal
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: "\u786C\u6BBB\u9271"
-  icon: {fileID: 0}
+  icon: {fileID: 2829606559142220587, guid: d377530e66ae53e4496c5589507987c0, type: 3}
   hpBonus: 0
   attackBonus: 0
   rangeBonus: 0
