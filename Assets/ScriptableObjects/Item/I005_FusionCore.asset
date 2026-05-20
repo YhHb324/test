@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: I005_FusionCore
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: "\u6EB6\u878D\u30B3\u30A2"
-  icon: {fileID: 0}
+  icon: {fileID: -1862404833403206043, guid: b9d867e27371bac41baaa8a0383cdd40, type: 3}
   hpBonus: 0
   attackBonus: 0
   rangeBonus: 0
