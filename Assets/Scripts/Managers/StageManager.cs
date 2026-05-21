@@ -59,6 +59,7 @@ public class StageManager : MonoBehaviour
 
 
         DevelopmentManager.Instance.NextStage(1);
+        FindFirstObjectByType<StageUI>().Refresh();
     }
 
     public void SpawnStageEnemy()
