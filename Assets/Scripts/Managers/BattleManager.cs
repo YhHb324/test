@@ -10,6 +10,8 @@ public class BattleManager : MonoBehaviour
     public int allyCount = 0;
     public int enemyCount = 0;
 
+    public int playerLife = 3;
+
     void Awake()
     {
         Instance = this;
@@ -160,6 +162,18 @@ public class BattleManager : MonoBehaviour
         if (playerWin)
         {
             StageManager.Instance.OnPlayerWin();
+        }
+        else
+        {
+            playerLife--;
+
+            FindFirstObjectByType<LifeUI>()
+                .Refresh();
+
+            if (playerLife <= 0)
+            {
+                Debug.Log("GAME OVER");
+            }
         }
 
         state = GameState.End;
