@@ -35,25 +35,10 @@ public class Tile : MonoBehaviour
 
     public void UpdateColor()
     {
-        // プレイヤー陣地
-        if (tileArea == TileArea.Player)
+        if (tileArea == TileArea.Enemy)
         {
             spriteRenderer.color =
-                new Color(0.7f, 0.8f, 1f, 0.7f);
-        }
-
-        // 敵陣地
-        else if (tileArea == TileArea.Enemy)
-        {
-            spriteRenderer.color =
-                new Color(1f, 0.7f, 0.7f, 0.7f);
-        }
-
-        // ベンチ
-        else
-        {
-            spriteRenderer.color =
-                Color.gray;
+                new Color(1f, 0.7f, 0.7f);
         }
     }
 }
