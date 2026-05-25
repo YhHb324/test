@@ -10,12 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3743a426dec5bb4a81e634bfbbd3440, type: 3}
-  m_Name: World2
+  m_Name: World2A
   m_EditorClassIdentifier: Assembly-CSharp::WorldData
-  worldName: World2
+  worldName: World2A
   maxBoardUnits: 4
   stages:
   - {fileID: 11400000, guid: 0a8745b39135bbc47aa2bdb2ab8082ce, type: 2}
   - {fileID: 11400000, guid: ae311d5040bc46849a276cd0e2da3d15, type: 2}
   - {fileID: 11400000, guid: 56a75fdf26de716488cca84e034c7e37, type: 2}
   - {fileID: 11400000, guid: 33a8f12998ac0e942869fff2089978b5, type: 2}
+  nextWorlds:
+  - {fileID: 11400000, guid: 2aa0a6e435bf9544caeee6548c877f40, type: 2}
+  previewImage: {fileID: 5376995226419659935, guid: 44c46e01adafe554d87fb515ac1813cd, type: 3}
+  description: 2A

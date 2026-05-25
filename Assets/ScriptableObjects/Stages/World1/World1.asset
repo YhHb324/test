@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: World1
   m_EditorClassIdentifier: Assembly-CSharp::WorldData
   worldName: World1
+  maxBoardUnits: 3
   stages:
   - {fileID: 11400000, guid: 9e3bb1a109d580e46b433d0291550327, type: 2}
   - {fileID: 11400000, guid: f8d89322f0f0f5247a0b0eab74858cdc, type: 2}
   - {fileID: 11400000, guid: d574f66f44ee57a44a75c184af06952a, type: 2}
+  nextWorlds:
+  - {fileID: 11400000, guid: 1b2bd23a9cb048f4a86e5993ed1542a3, type: 2}
+  - {fileID: 11400000, guid: 08d317f67e8d5b24bb5ffefbbf900e03, type: 2}
+  previewImage: {fileID: 2999192809883709135, guid: 058a9aaff2c9ab74d8751224c066aac2, type: 3}
+  description: 1
