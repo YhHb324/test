@@ -186,8 +186,26 @@ public class BattleManager : MonoBehaviour
         
         yield return new WaitForSeconds(1f);
 
-        //味方生存ユニットを元の場所へもどす
-        BattleUnit[] units = FindObjectsByType<BattleUnit>(FindObjectsSortMode.None);
+        CleanupBattle();
+
+        yield return new WaitForSeconds(0.5f);
+
+        yield return null;
+
+        // 次ステージ敵生成
+        StageManager.Instance.SpawnStageEnemy();
+
+        // 自動でSetup1へ戻す
+        state = GameState.Setup1;
+
+        Debug.Log("→ Setup1");
+    }
+
+    void CleanupBattle()
+    {
+        BattleUnit[] units =
+            FindObjectsByType<BattleUnit>(
+                FindObjectsSortMode.None);
 
         foreach (BattleUnit unit in units)
         {
@@ -202,8 +220,8 @@ public class BattleManager : MonoBehaviour
             }
         }
 
-        // 敵削除
-        List<BattleUnit> enemies = new List<BattleUnit>();
+        List<BattleUnit> enemies =
+            new List<BattleUnit>();
 
         foreach (BattleUnit unit in units)
         {
@@ -223,14 +241,6 @@ public class BattleManager : MonoBehaviour
             Destroy(enemy.gameObject);
         }
 
-        yield return new WaitForSeconds(0.5f);
-
-        yield return null;
-
-        // 次ステージ敵生成
-        StageManager.Instance.SpawnStageEnemy();
-
-
         DevelopmentManager.Instance.liquidTeams = 0;
         DevelopmentManager.Instance.resourceTeams = 0;
 
@@ -242,10 +252,10 @@ public class BattleManager : MonoBehaviour
 
         FindFirstObjectByType<TotalTeamsUI>()
             .Refresh();
+    }
 
-        // 自動でSetup1へ戻す
-        state = GameState.Setup1;
-
-        Debug.Log("→ Setup1");
+    public void CleanupOnly()
+    {
+        CleanupBattle();
     }
 }

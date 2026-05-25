@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StageManager : MonoBehaviour
 {
@@ -6,18 +7,39 @@ public class StageManager : MonoBehaviour
 
     public WorldData[] worlds;
 
+    public WorldData startWorld;
+
+    public WorldData currentWorld;
+
     public int currentWorldIndex = 0;
 
     public int currentStageIndex = 0;
 
     void Awake()
     {
+        // 既に存在するなら削除
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
+
+        // Scene切替でも残す
+        DontDestroyOnLoad(gameObject);
+
+        if (currentWorld == null)
+        {
+            currentWorld = startWorld;
+        }
+
+        Debug.Log("Awake currentWorld : " +(currentWorld == null? "NULL": currentWorld.worldName));
     }
 
     public WorldData CurrentWorld()
     {
-        return worlds[currentWorldIndex];
+        return currentWorld;
     }
 
     public StageData CurrentStage()
@@ -30,16 +52,10 @@ public class StageManager : MonoBehaviour
         currentStageIndex++;
 
         // Worldクリア
-        if (
-            currentStageIndex >=
-            CurrentWorld().stages.Length
-        )
+        if (currentStageIndex >= CurrentWorld().stages.Length)
         {
-            // 最後のWorld
-            if (
-                currentWorldIndex >=
-                worlds.Length - 1
-            )
+            // 次Worldなし
+            if (CurrentWorld().nextWorlds.Length == 0)
             {
                 Debug.Log("GAME CLEAR");
 
@@ -49,12 +65,17 @@ public class StageManager : MonoBehaviour
                 return;
             }
 
-            // 次Worldへ
             currentWorldIndex++;
 
             currentStageIndex = 0;
 
+            BattleManager.Instance.CleanupOnly();
+
             Debug.Log("NEXT WORLD");
+
+            SceneManager.LoadScene("RootChoiceScene");
+
+            return;
         }
 
 
@@ -66,5 +87,22 @@ public class StageManager : MonoBehaviour
     {
         BoardManager.Instance
             .SpawnStageEnemies();
+    }
+
+    public void SelectWorld(WorldData world)
+    {
+        Debug.Log(
+            "Select World : " +
+            world.worldName);
+
+        currentWorld = world;
+
+        Debug.Log(
+            "CurrentWorld After Select : " +
+            currentWorld.worldName);
+
+        currentStageIndex = 0;
+
+        SceneManager.LoadScene("BattleScene");
     }
 }

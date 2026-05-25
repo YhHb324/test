@@ -73,7 +73,7 @@ public class ResourceSectionUI : MonoBehaviour
         countText.text = DevelopmentManager.Instance.resourceTeams + "/5";
     }
 
-    void RefreshAll()
+    public void RefreshAll()
     {
         LiquidSectionUI liquid =
             FindFirstObjectByType<LiquidSectionUI>();

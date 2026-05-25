@@ -8,4 +8,11 @@ public class WorldData : ScriptableObject
     public int maxBoardUnits = 3;
 
     public StageData[] stages;
+
+    public WorldData[] nextWorlds;
+
+    public Sprite previewImage;
+
+    [TextArea]
+    public string description;
 }

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3743a426dec5bb4a81e634bfbbd3440, type: 3}
+  m_Name: World2B
+  m_EditorClassIdentifier: Assembly-CSharp::WorldData
+  worldName: World2B
+  maxBoardUnits: 4
+  stages:
+  - {fileID: 11400000, guid: 0a8745b39135bbc47aa2bdb2ab8082ce, type: 2}
+  - {fileID: 11400000, guid: ae311d5040bc46849a276cd0e2da3d15, type: 2}
+  - {fileID: 11400000, guid: 56a75fdf26de716488cca84e034c7e37, type: 2}
+  - {fileID: 11400000, guid: 33a8f12998ac0e942869fff2089978b5, type: 2}
+  nextWorlds:
+  - {fileID: 11400000, guid: 2aa0a6e435bf9544caeee6548c877f40, type: 2}
+  previewImage: {fileID: 2829606559142220587, guid: d377530e66ae53e4496c5589507987c0, type: 3}
+  description: 2B

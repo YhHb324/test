@@ -1340,7 +1340,6 @@ GameObject:
   - component: {fileID: 461785879}
   - component: {fileID: 461785881}
   - component: {fileID: 461785880}
-  - component: {fileID: 461785882}
   m_Layer: 5
   m_Name: DevelopmentPanel
   m_TagString: Untagged
@@ -1409,21 +1408,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 461785878}
   m_CullTransparentMesh: 1
---- !u!114 &461785882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 461785878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4447d3bec31dab4fb08c819ab60a1be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DevelopmentManager
-  totalTeams: 5
-  liquidTeams: 0
-  resourceTeams: 0
 --- !u!1 &465297530
 GameObject:
   m_ObjectHideFlags: 0
@@ -1633,11 +1617,11 @@ Transform:
   m_GameObject: {fileID: 561121995}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.95628, y: -1.12382, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1693829826}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &595289571
 GameObject:
@@ -3101,6 +3085,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 923430680}
   m_CullTransparentMesh: 1
+--- !u!1 &937747160
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 937747162}
+  - component: {fileID: 937747161}
+  m_Layer: 0
+  m_Name: DevelopmentManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &937747161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937747160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4447d3bec31dab4fb08c819ab60a1be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DevelopmentManager
+  totalTeams: 5
+  liquidTeams: 0
+  resourceTeams: 0
+--- !u!4 &937747162
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937747160}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.50318, y: -0.90717, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1032745660
 GameObject:
   m_ObjectHideFlags: 0
@@ -4071,11 +4102,11 @@ Transform:
   m_GameObject: {fileID: 1244844633}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 5.95628, y: 1.12382, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1693829826}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1244844635
 MonoBehaviour:
@@ -4092,6 +4123,8 @@ MonoBehaviour:
   worlds:
   - {fileID: 11400000, guid: 2aa0a6e435bf9544caeee6548c877f40, type: 2}
   - {fileID: 11400000, guid: 1b2bd23a9cb048f4a86e5993ed1542a3, type: 2}
+  startWorld: {fileID: 11400000, guid: 2aa0a6e435bf9544caeee6548c877f40, type: 2}
+  currentWorld: {fileID: 0}
   currentWorldIndex: 0
   currentStageIndex: 0
 --- !u!1 &1298684082
@@ -5015,11 +5048,11 @@ Transform:
   m_GameObject: {fileID: 1476170616}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.95628, y: -1.12382, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1693829826}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1497381549
 GameObject:
@@ -5537,40 +5570,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1655318806}
   m_CullTransparentMesh: 1
---- !u!1 &1693829825
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1693829826}
-  m_Layer: 0
-  m_Name: Managers
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1693829826
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1693829825}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.95628, y: 1.12382, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1244844634}
-  - {fileID: 1476170618}
-  - {fileID: 561121997}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1781697748
 GameObject:
   m_ObjectHideFlags: 0
@@ -6485,6 +6484,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1505627381}
-  - {fileID: 1693829826}
+  - {fileID: 1244844634}
+  - {fileID: 937747162}
+  - {fileID: 1476170618}
+  - {fileID: 561121997}
   - {fileID: 1032745664}
   - {fileID: 736654364}

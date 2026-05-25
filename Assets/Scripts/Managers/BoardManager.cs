@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class BoardManager : MonoBehaviour
 {
@@ -27,11 +28,14 @@ public class BoardManager : MonoBehaviour
         Instance = this;
     }
 
-    void Start()
+    IEnumerator Start()
     {
         CreateBoard();
         CreateBench();
+
         StageManager.Instance.SpawnStageEnemy();
+
+        yield return null;
     }
 
     void Update()

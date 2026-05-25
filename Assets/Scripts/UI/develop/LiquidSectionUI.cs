@@ -143,7 +143,7 @@ public class LiquidSectionUI : MonoBehaviour
             + DevelopmentManager.Instance.totalTeams;
     }
 
-    void RefreshAll()
+    public void RefreshAll()
     {
         ResourceSectionUI resource =
             FindFirstObjectByType<ResourceSectionUI>();
