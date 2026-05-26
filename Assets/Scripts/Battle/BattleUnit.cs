@@ -305,6 +305,8 @@ public class BattleUnit : MonoBehaviour
 
         transform.position = originalTile.transform.position;
 
+        Physics2D.SyncTransforms();
+
         RefreshStats();
     }
 }

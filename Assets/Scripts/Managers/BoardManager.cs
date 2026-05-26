@@ -33,6 +33,14 @@ public class BoardManager : MonoBehaviour
         CreateBoard();
         CreateBench();
 
+        // 保存ユニット復元
+        if (UnitManager.Instance.savedUnits.Count > 0)
+        {
+            RestoreUnits();
+
+            UnitManager.Instance.savedUnits.Clear();
+        }
+
         StageManager.Instance.SpawnStageEnemy();
 
         yield return null;
@@ -80,23 +88,29 @@ public class BoardManager : MonoBehaviour
         // 押した瞬間
         if (Input.GetMouseButtonDown(0))
         {
-            Collider2D hit =
-                Physics2D.OverlapPoint(mouseWorld);
+            Collider2D[] hits =
+                Physics2D.OverlapPointAll(mouseWorld);
 
-            if (hit != null)
+            foreach (Collider2D hit in hits)
             {
-                BattleUnit unit = hit.GetComponent<BattleUnit>();
+                BattleUnit unit =
+                    hit.GetComponent<BattleUnit>();
 
-                if (unit != null)
-                {
-                    if (unit.isEnemy)
-                        return;
-                    draggingUnit = unit;
+                if (unit == null)
+                    continue;
 
-                    dragOffset =
-                        unit.transform.position
-                        - mouseWorld;
-                }
+                Debug.Log(unit.name);
+
+                if (unit.isEnemy)
+                    return;
+
+                draggingUnit = unit;
+
+                dragOffset =
+                    unit.transform.position
+                    - mouseWorld;
+
+                break;
             }
         }
 
@@ -238,18 +252,20 @@ public class BoardManager : MonoBehaviour
 
     void DropItem(Vector3 mouseWorld)
     {
-        Collider2D hit =
-            Physics2D.OverlapPoint(mouseWorld);
+        Collider2D[] hits =
+            Physics2D.OverlapPointAll(mouseWorld);
 
-        if (hit == null)
+        BattleUnit unit = null;
+
+        foreach (Collider2D hit in hits)
         {
-            dragItemIcon.enabled = false;
-            draggingItem = null;
-            return;
-        }
+            unit = hit.GetComponent<BattleUnit>();
 
-        BattleUnit unit =
-            hit.GetComponent<BattleUnit>();
+            if (unit != null)
+            {
+                break;
+            }
+        }
 
         if (unit == null)
         {
@@ -257,6 +273,17 @@ public class BoardManager : MonoBehaviour
             draggingItem = null;
             return;
         }
+
+        Debug.Log(unit.name);
+
+        if (unit == null)
+        {
+            dragItemIcon.enabled = false;
+            draggingItem = null;
+            return;
+        }
+
+        Debug.Log(unit.name);
 
         if (unit.isEnemy)
         {
@@ -284,7 +311,7 @@ public class BoardManager : MonoBehaviour
 
                 if (index >= 0)
                 {
-                    itemsUI.itemCounts[index]--;
+                    ItemManager.Instance.itemCounts[index]--;
 
                     itemsUI.Refresh();
                 }
@@ -565,6 +592,51 @@ public class BoardManager : MonoBehaviour
             tile.currentUnit = unit;
 
             
+        }
+    }
+
+    public void RestoreUnits()
+    {
+        foreach (
+            SavedUnitData save
+            in UnitManager.Instance.savedUnits
+        )
+        {
+            Tile tile;
+
+            if (save.isOnBench)
+            {
+                tile =
+                    benchTiles[save.benchIndex];
+            }
+            else
+            {
+                tile = GetBoardTile(save.x, save.y);
+            }
+
+            if (tile == null)
+            {
+                Debug.Log("Tile Null");
+                continue;
+            }
+
+            GameObject obj =
+                Instantiate(
+                    unitPrefab,
+                    tile.transform.position,
+                    Quaternion.identity);
+
+            BattleUnit unit = obj.GetComponent<BattleUnit>();
+
+            unit.data = save.unitData;
+
+            unit.items = (ItemData[])save.items.Clone();
+
+            unit.currentTile = tile;
+
+            tile.currentUnit = unit;
+
+            unit.RefreshStats();
         }
     }
 

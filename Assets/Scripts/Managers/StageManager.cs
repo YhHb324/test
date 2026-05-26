@@ -73,6 +73,7 @@ public class StageManager : MonoBehaviour
 
             Debug.Log("NEXT WORLD");
 
+            BattleManager.Instance.SaveUnits();
             SceneManager.LoadScene("RootChoiceScene");
 
             return;
