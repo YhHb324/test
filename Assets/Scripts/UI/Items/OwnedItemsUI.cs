@@ -6,17 +6,6 @@ public class OwnedItemsUI : MonoBehaviour
 
     public ItemData[] itemDatas;
 
-    // 仮データ
-    public int[] itemCounts =
-    {
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-    };
-
     void Start()
     {
         Refresh();
@@ -31,9 +20,9 @@ public class OwnedItemsUI : MonoBehaviour
         {
             // 0〜5 のランダム
             int randomIndex =
-                Random.Range(0, itemCounts.Length);
+                Random.Range(0, ItemManager.Instance.itemCounts.Length);
 
-            itemCounts[randomIndex]++;
+            ItemManager.Instance.itemCounts[randomIndex]++;
         }
 
         Refresh();
@@ -43,7 +32,7 @@ public class OwnedItemsUI : MonoBehaviour
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            slots[i].SetItem( itemDatas[i], itemCounts[i] );
+            slots[i].SetItem(itemDatas[i],ItemManager.Instance.itemCounts[i]);
         }
     }
 }

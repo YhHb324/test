@@ -51,7 +51,9 @@ public class BattleManager : MonoBehaviour
     void EnterSetup2()
     {
         BoardManager.Instance.SpawnPlayerUnitsToBench();
-        FindFirstObjectByType<OwnedItemsUI>().GenerateItems();
+
+        FindFirstObjectByType<OwnedItemsUI>()
+            .GenerateItems();
     }
 
     public void StartBattle()
@@ -187,6 +189,7 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         CleanupBattle();
+        SaveUnits();
 
         yield return new WaitForSeconds(0.5f);
 
@@ -257,5 +260,57 @@ public class BattleManager : MonoBehaviour
     public void CleanupOnly()
     {
         CleanupBattle();
+    }
+
+    public void SaveUnits()
+    {
+        UnitManager.Instance.savedUnits.Clear();
+
+        BattleUnit[] units =
+            FindObjectsByType<BattleUnit>(
+                FindObjectsSortMode.None);
+
+        foreach (BattleUnit unit in units)
+        {
+            if (unit == null)
+                continue;
+
+            if (unit.isEnemy)
+                continue;
+
+            if (unit.isDead)
+                continue;
+
+            if (unit.currentTile == null)
+                continue;
+
+            SavedUnitData save =
+                new SavedUnitData();
+
+            save.unitData = unit.data;
+
+            save.items =
+                (ItemData[])unit.items.Clone();
+
+            save.isOnBench =
+                unit.currentTile.tileType
+                == TileType.Bench;
+
+            if (save.isOnBench)
+            {
+                save.benchIndex = unit.currentTile.y;
+            }
+            else
+            {
+                save.x = unit.currentTile.x;
+                save.y = unit.currentTile.y;
+            }
+
+            UnitManager.Instance.savedUnits
+                .Add(save);
+        }
+
+        Debug.Log("Saved Units : " + UnitManager.Instance.savedUnits.Count
+        );
     }
 }
