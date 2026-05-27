@@ -17,7 +17,7 @@ public class LifeUI : MonoBehaviour
     public void Refresh()
     {
         int life =
-            BattleManager.Instance.playerLife;
+            SaveManager.Instance.playerLife;
 
         for (int i = 0; i < lamps.Length; i++)
         {

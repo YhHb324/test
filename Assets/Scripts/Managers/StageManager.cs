@@ -45,7 +45,7 @@ public class StageManager : MonoBehaviour
         return CurrentWorld().stages[currentStageIndex];
     }
 
-    public void OnPlayerWin()
+    public bool OnPlayerWin()
     {
         currentStageIndex++;
 
@@ -60,24 +60,22 @@ public class StageManager : MonoBehaviour
                 currentStageIndex =
                     CurrentWorld().stages.Length - 1;
 
-                return;
+                return false;
             }
 
             currentStageIndex = 0;
 
-            BattleManager.Instance.CleanupOnly();
-
-            Debug.Log("NEXT WORLD");
-
-            SaveManager.Instance.SaveUnits();
+            SaveManager.Instance.SaveRun();
             SceneManager.LoadScene("RootChoiceScene");
 
-            return;
+            return false;
         }
 
 
         DevelopmentManager.Instance.NextStage(1);
         FindFirstObjectByType<StageUI>().Refresh();
+
+        return true;
     }
 
     public void SpawnStageEnemy()
