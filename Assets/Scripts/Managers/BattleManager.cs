@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -10,7 +11,9 @@ public class BattleManager : MonoBehaviour
     public int allyCount = 0;
     public int enemyCount = 0;
 
-    public int playerLife = 3;
+    bool playerWin;
+
+    bool gameOver;
 
     void Awake()
     {
@@ -58,6 +61,7 @@ public class BattleManager : MonoBehaviour
 
     public void StartBattle()
     {
+        gameOver = false;
         state = GameState.Battle;
 
         BattleUnit[] units =
@@ -153,28 +157,22 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    void EndBattle(bool playerWin)
+    void EndBattle(bool win)
     {
-        Debug.Log(
-            playerWin
-            ? "PLAYER WIN"
-            : "PLAYER LOSE");
+        playerWin = win;
 
-        // 勝利時だけステージ進行
-        if (playerWin)
+        Debug.Log(playerWin ? "PLAYER WIN" : "PLAYER LOSE");
+
+        if (!playerWin)
         {
-            StageManager.Instance.OnPlayerWin();
-        }
-        else
-        {
-            playerLife--;
+            SaveManager.Instance.playerLife--;
 
             FindFirstObjectByType<LifeUI>()
                 .Refresh();
 
-            if (playerLife <= 0)
+            if (SaveManager.Instance.playerLife <= 0)
             {
-                Debug.Log("GAME OVER");
+                gameOver = true;
             }
         }
 
@@ -185,22 +183,42 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator EndProcess()
     {
-        
         yield return new WaitForSeconds(1f);
-
         CleanupBattle();
-
         yield return new WaitForSeconds(0.5f);
 
-        yield return null;
+        if (playerWin)
+        {
 
-        // 次ステージ敵生成
-        StageManager.Instance.SpawnStageEnemy();
+            if (StageManager.Instance.OnPlayerWin())
+            {
+                StageManager.Instance.SpawnStageEnemy();
 
-        // 自動でSetup1へ戻す
-        state = GameState.Setup1;
+                state = GameState.Setup1;
+            }
+        }
+        else
+        {
+            if (gameOver)
+            {
+                SceneManager.LoadScene("TitleScene");
+            }
+            else
+            {
+                SaveManager.Instance.LoadRun();
 
-        Debug.Log("→ Setup1");
+                if (SaveManager.Instance.hasRunSave)
+                {
+                    SceneManager.LoadScene("RootChoiceScene");
+                }
+                else
+                {
+                    SceneManager.LoadScene("BattleScene");
+                }
+            }
+        }
+
+        RefreshDevelopmentUI();
     }
 
     void CleanupBattle()
@@ -242,18 +260,21 @@ public class BattleManager : MonoBehaviour
 
             Destroy(enemy.gameObject);
         }
+    }
 
+    void RefreshDevelopmentUI()
+    {
         DevelopmentManager.Instance.liquidTeams = 0;
         DevelopmentManager.Instance.resourceTeams = 0;
 
         FindFirstObjectByType<LiquidSectionUI>()
-            .Refresh();
+            ?.Refresh();
 
         FindFirstObjectByType<ResourceSectionUI>()
-            .Refresh();
+            ?.Refresh();
 
         FindFirstObjectByType<TotalTeamsUI>()
-            .Refresh();
+            ?.Refresh();
     }
 
     public void CleanupOnly()

@@ -32,14 +32,7 @@ public class BoardManager : MonoBehaviour
     {
         CreateBoard();
         CreateBench();
-
-        // 保存ユニット復元
-        if (SaveManager.Instance.savedUnits.Count > 0)
-        {
-            RestoreUnits();
-
-            SaveManager.Instance.savedUnits.Clear();
-        }
+        RestoreUnits();
 
         StageManager.Instance.SpawnStageEnemy();
 
