@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3743a426dec5bb4a81e634bfbbd3440, type: 3}
   m_Name: World2B
   m_EditorClassIdentifier: Assembly-CSharp::WorldData
-  worldName: World2B
+  worldName: 2B
   maxBoardUnits: 4
   stages:
   - {fileID: 11400000, guid: 0a8745b39135bbc47aa2bdb2ab8082ce, type: 2}

@@ -11,8 +11,6 @@ public class StageManager : MonoBehaviour
 
     public WorldData currentWorld;
 
-    public int currentWorldIndex = 0;
-
     public int currentStageIndex = 0;
 
     void Awake()
@@ -65,15 +63,13 @@ public class StageManager : MonoBehaviour
                 return;
             }
 
-            currentWorldIndex++;
-
             currentStageIndex = 0;
 
             BattleManager.Instance.CleanupOnly();
 
             Debug.Log("NEXT WORLD");
 
-            BattleManager.Instance.SaveUnits();
+            SaveManager.Instance.SaveUnits();
             SceneManager.LoadScene("RootChoiceScene");
 
             return;
