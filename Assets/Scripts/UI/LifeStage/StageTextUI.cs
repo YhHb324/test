@@ -12,13 +12,13 @@ public class StageUI : MonoBehaviour
 
     public void Refresh()
     {
-        int world =
-            StageManager.Instance.currentWorldIndex + 1;
+        string worldName =
+            StageManager.Instance.CurrentWorld().worldName;
 
         int stage =
             StageManager.Instance.currentStageIndex + 1;
 
         stageText.text =
-          "Stage : " +  world + "-" + stage;
+          worldName + "-" + stage;
     }
 }

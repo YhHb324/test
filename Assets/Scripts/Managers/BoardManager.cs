@@ -34,11 +34,11 @@ public class BoardManager : MonoBehaviour
         CreateBench();
 
         // 保存ユニット復元
-        if (UnitManager.Instance.savedUnits.Count > 0)
+        if (SaveManager.Instance.savedUnits.Count > 0)
         {
             RestoreUnits();
 
-            UnitManager.Instance.savedUnits.Clear();
+            SaveManager.Instance.savedUnits.Clear();
         }
 
         StageManager.Instance.SpawnStageEnemy();
@@ -82,8 +82,6 @@ public class BoardManager : MonoBehaviour
 
             return;
         }
-
-        mouseWorld.z = 0;
 
         // 押した瞬間
         if (Input.GetMouseButtonDown(0))
@@ -266,15 +264,6 @@ public class BoardManager : MonoBehaviour
                 break;
             }
         }
-
-        if (unit == null)
-        {
-            dragItemIcon.enabled = false;
-            draggingItem = null;
-            return;
-        }
-
-        Debug.Log(unit.name);
 
         if (unit == null)
         {
@@ -599,7 +588,7 @@ public class BoardManager : MonoBehaviour
     {
         foreach (
             SavedUnitData save
-            in UnitManager.Instance.savedUnits
+            in SaveManager.Instance.savedUnits
         )
         {
             Tile tile;
