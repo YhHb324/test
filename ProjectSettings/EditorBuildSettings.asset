@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/RootChoiceScene.unity
     guid: 85ea60c6793f4a24db5b119a6aaf3f65
   - enabled: 0
-    path: Assets/Scenes/GameScene.unity
+    path: Assets/Scenes/GameScenes/GameScene.unity
     guid: aba14c6c25ddb1a45b7efe4b11777ebd
   - enabled: 0
     path: Assets/Scenes/SampleScene.unity

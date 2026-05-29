@@ -112,7 +112,7 @@ public class SaveManager : MonoBehaviour
             if (save.isOnBench)
             {
                 save.benchIndex =
-                    unit.currentTile.y;
+                    unit.currentTile.x;
             }
             else
             {
