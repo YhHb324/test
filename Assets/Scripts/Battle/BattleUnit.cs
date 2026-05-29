@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleUnit : MonoBehaviour
@@ -120,8 +121,16 @@ public class BattleUnit : MonoBehaviour
             }
             else
             {
+                Tile targetTile = GetTargetTileFromEnemies();
+
+                if (targetTile == null)
+                {
+                    yield return null;
+                    continue;
+                }
+
                 Tile nextTile =
-                    GetNextTileTowards(target);
+                    GetNextTileTowards(targetTile);
 
                 if (nextTile != null)
                 {
@@ -174,6 +183,92 @@ public class BattleUnit : MonoBehaviour
         return nearest;
     }
 
+    List<Tile> GetAttackableTiles(BattleUnit target)
+    {
+        List<Tile> tiles = new List<Tile>();
+
+        int tx = target.currentTile.x;
+        int ty = target.currentTile.y;
+
+        for (int dx = -range; dx <= range; dx++)
+        {
+            for (int dy = -range; dy <= range; dy++)
+            {
+                int dist = Mathf.Abs(dx) + Mathf.Abs(dy);
+
+                if (dist > range) continue;
+                if (dx == 0 && dy == 0) continue;
+
+                Tile tile = BoardManager.Instance.GetBoardTile(tx + dx, ty + dy);
+                if (tile == null) continue;
+
+                tiles.Add(tile);
+            }
+        }
+
+        return tiles;
+    }
+
+    Tile GetBestAttackTile(List<Tile> tiles)
+    {
+        Tile best = null;
+        int bestDist = 999;
+
+        foreach (Tile tile in tiles)
+        {
+            if (tile.currentUnit != null) continue;
+            if (tile.reservedUnit != null) continue;
+
+            int dist = GetDistance(currentTile, tile);
+
+            if (dist < bestDist)
+            {
+                bestDist = dist;
+                best = tile;
+            }
+        }
+
+        return best;
+    }
+
+    Tile GetTargetTileFromEnemies()
+    {
+        BattleUnit[] units =
+            FindObjectsByType<BattleUnit>(FindObjectsSortMode.None);
+
+        List<BattleUnit> enemies = new List<BattleUnit>();
+
+        foreach (BattleUnit unit in units)
+        {
+            if (unit == null) continue;
+            if (unit.isDead) continue;
+            if (unit.currentTile == null) continue;
+            if (unit.currentTile.tileType != TileType.Board) continue;
+            if (unit.isEnemy == isEnemy) continue;
+
+            enemies.Add(unit);
+        }
+
+        // 距離順にソート
+        enemies.Sort((a, b) =>
+            GetDistance(currentTile, a.currentTile)
+            .CompareTo(GetDistance(currentTile, b.currentTile))
+        );
+
+        // 近い順に試す
+        foreach (BattleUnit enemy in enemies)
+        {
+            List<Tile> tiles = GetAttackableTiles(enemy);
+
+            Tile best = GetBestAttackTile(tiles);
+
+            if (best != null)
+                return best;
+        }
+
+        return null;
+    }
+
     int GetDistance(Tile a, Tile b)
     {
         int dx = Mathf.Abs(a.x - b.x);
@@ -209,33 +304,49 @@ public class BattleUnit : MonoBehaviour
 
     }
 
-    Tile GetNextTileTowards(BattleUnit target)
+    Tile GetNextTileTowards(Tile targetTile)
     {
-        int dx =
-            target.currentTile.x - currentTile.x;
+        int dx = targetTile.x - currentTile.x;
+        int dy = targetTile.y - currentTile.y;
 
-        int dy =
-            target.currentTile.y - currentTile.y;
+        int stepX = dx == 0 ? 0 : (dx > 0 ? 1 : -1);
+        int stepY = dy == 0 ? 0 : (dy > 0 ? 1 : -1);
 
-        Tile bestTile = null;
+        // 優先方向決定（C）
+        bool prioritizeX = Mathf.Abs(dx) > Mathf.Abs(dy);
 
-        // 横優先
-        if (Mathf.Abs(dx) > Mathf.Abs(dy))
+        Tile forward = null;
+        Tile side1 = null;
+        Tile side2 = null;
+        Tile back = null;
+
+        if (prioritizeX)
         {
-            bestTile =
-                TryGetTile(
-                    currentTile.x + (dx > 0 ? 1 : -1),
-                    currentTile.y);
+            forward = TryGetTileWithReserve(currentTile.x + stepX, currentTile.y);
+
+            side1 = TryGetTileWithReserve(currentTile.x, currentTile.y + 1);
+            side2 = TryGetTileWithReserve(currentTile.x, currentTile.y - 1);
         }
         else
         {
-            bestTile =
-                TryGetTile(
-                    currentTile.x,
-                    currentTile.y + (dy > 0 ? 1 : -1));
+            forward = TryGetTileWithReserve(currentTile.x, currentTile.y + stepY);
+
+            side1 = TryGetTileWithReserve(currentTile.x + 1, currentTile.y);
+            side2 = TryGetTileWithReserve(currentTile.x - 1, currentTile.y);
         }
 
-        return bestTile;
+        back = TryGetTileWithReserve(
+            currentTile.x - stepX,
+            currentTile.y - stepY
+        );
+
+        // 優先順
+        if (forward != null) return forward;
+        if (side1 != null) return side1;
+        if (side2 != null) return side2;
+        if (back != null) return back;
+
+        return null;
     }
 
     Tile TryGetTile(int x, int y)
@@ -252,9 +363,24 @@ public class BattleUnit : MonoBehaviour
         return tile;
     }
 
+    Tile TryGetTileWithReserve(int x, int y)
+    {
+        Tile tile = BoardManager.Instance.GetBoardTile(x, y);
+
+        if (tile == null) return null;
+
+        if (tile.currentUnit != null) return null;
+
+        if (tile.reservedUnit != null) return null;
+
+        return tile;
+    }
+
     IEnumerator MoveTo(Tile tile)
     {
         Tile oldTile = currentTile;
+
+        tile.reservedUnit = this;
 
         if (oldTile.currentUnit == this)
         {
@@ -287,6 +413,8 @@ public class BattleUnit : MonoBehaviour
         }
 
         transform.position = end;
+
+        currentTile.reservedUnit = null;
     }
 
     public void ReturnToOriginalTile()
