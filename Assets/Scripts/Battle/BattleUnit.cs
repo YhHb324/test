@@ -7,6 +7,8 @@ public class BattleUnit : MonoBehaviour
 
     public int baseHP;
 
+    public int maxHp;
+
     public UnitData data;
 
     public int hp;
@@ -47,7 +49,7 @@ public class BattleUnit : MonoBehaviour
 
     public void RefreshStats()
     {
-        hp = data.hp;
+        maxHp = data.hp;
 
         attack = data.attack;
 
@@ -64,7 +66,7 @@ public class BattleUnit : MonoBehaviour
             if (item == null)
                 continue;
 
-            hp += item.hpBonus;
+            maxHp += item.hpBonus;
 
             attack += item.attackBonus;
 
@@ -76,6 +78,9 @@ public class BattleUnit : MonoBehaviour
 
             moveSpeed += item.moveSpeedBonus;
         }
+
+        hp = maxHp;
+
     }
 
     public void SetBattleStartTile()

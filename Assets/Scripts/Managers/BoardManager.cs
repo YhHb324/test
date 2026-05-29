@@ -92,6 +92,20 @@ public class BoardManager : MonoBehaviour
 
                 Debug.Log(unit.name);
 
+                if (unit != null)
+                {
+                    // 追加：ツールチップ表示
+                    ToolTipUI.Instance.Show(unit);
+
+                    if (unit.isEnemy)
+                        return;
+
+                    draggingUnit = unit;
+                    dragOffset =
+                        unit.transform.position - mouseWorld;
+                    break;
+                }
+
                 if (unit.isEnemy)
                     return;
 
@@ -283,6 +297,8 @@ public class BoardManager : MonoBehaviour
 
                 unit.RefreshStats();
 
+                ToolTipUI.Instance.Show(unit);
+
                 OwnedItemsUI itemsUI =
                     FindFirstObjectByType<OwnedItemsUI>();
 
@@ -353,7 +369,7 @@ public class BoardManager : MonoBehaviour
 
     void CreateBoard()
     {
-        float offsetY = -3.5f;
+        float offsetY = -3f;
 
         boardTiles = new Tile[boardWidth, boardHeight];
 
@@ -438,15 +454,18 @@ public class BoardManager : MonoBehaviour
 
     void CreateBench()
     {
-        float offsetY = -2f;
-        benchTiles = new Tile[5];
+        float boardOffsetY = -3.5f;
+        float benchY = boardOffsetY -1f; //盤面の1マス下
 
-        for (int y = 0; y < 5; y++)
+        int benchCount = 7;
+        benchTiles = new Tile[benchCount];
+
+        for (int x = 0; x < benchCount; x++)
         {
-            Vector3 pos =
+            Vector3 pos = 
                 new Vector3(
-                    -2,
-                    y + offsetY,
+                    x,  //盤面中央寄せ。0開始にしたければ x
+                    benchY,
                     0
                 );
 
@@ -460,10 +479,14 @@ public class BoardManager : MonoBehaviour
             Tile tile =
                 obj.GetComponent<Tile>();
 
+            tile.x = x;
+            tile.y = -1;
             tile.tileType = TileType.Bench;
+            tile.tileArea = TileArea.Player;
+
             tile.UpdateColor();
 
-            benchTiles[y] = tile;
+            benchTiles[x] = tile;
         }
     }
 
