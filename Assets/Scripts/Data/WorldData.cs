@@ -13,6 +13,8 @@ public class WorldData : ScriptableObject
 
     public Sprite previewImage;
 
+    public Sprite enemyTileSprite;
+
     [TextArea]
     public string description;
 }
