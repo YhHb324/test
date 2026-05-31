@@ -183,6 +183,15 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator EndProcess()
     {
+        if (playerWin)
+        {
+            BackgroundManager.Instance.PlayWinScroll();
+        }
+        else
+        {
+            BackgroundManager.Instance.PlayLoseScroll();
+        }
+
         yield return new WaitForSeconds(1f);
         CleanupBattle();
         yield return new WaitForSeconds(0.5f);
