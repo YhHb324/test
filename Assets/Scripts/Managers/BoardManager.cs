@@ -379,7 +379,7 @@ public class BoardManager : MonoBehaviour
             {
                 Vector3 pos =
                     new Vector3(
-                        x,
+                        x - 3f,
                         y + offsetY,
                         0
                     );
@@ -477,7 +477,7 @@ public class BoardManager : MonoBehaviour
         {
             Vector3 pos = 
                 new Vector3(
-                    x,  //盤面中央寄せ。0開始にしたければ x
+                    x - 3f,  //盤面中央寄せ。0開始にしたければ x
                     benchY,
                     0
                 );
