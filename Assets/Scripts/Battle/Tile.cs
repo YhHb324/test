@@ -34,12 +34,8 @@ public class Tile : MonoBehaviour
             GetComponent<SpriteRenderer>();
     }
 
-    public void UpdateColor()
+    public void SetSprite(Sprite sprite)
     {
-        if (tileArea == TileArea.Enemy)
-        {
-            spriteRenderer.color =
-                new Color(1f, 0.7f, 0.7f);
-        }
+        spriteRenderer.sprite = sprite;
     }
 }

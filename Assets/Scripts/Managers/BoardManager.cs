@@ -412,7 +412,20 @@ public class BoardManager : MonoBehaviour
                         TileArea.Enemy;
                 }
 
-                tile.UpdateColor();
+                if (tile.tileArea == TileArea.Enemy)
+                {
+                    Sprite enemySprite =
+                        StageManager.Instance
+                        .CurrentWorld()
+                        .enemyTileSprite;
+
+                    if (enemySprite != null)
+                    {
+                        tile.SetSprite(enemySprite);
+                    }
+                }
+
+                boardTiles[x, y] = tile;
 
                 boardTiles[x, y] = tile;
             }
@@ -483,8 +496,6 @@ public class BoardManager : MonoBehaviour
             tile.y = -1;
             tile.tileType = TileType.Bench;
             tile.tileArea = TileArea.Player;
-
-            tile.UpdateColor();
 
             benchTiles[x] = tile;
         }

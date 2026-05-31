@@ -22,4 +22,5 @@ MonoBehaviour:
   nextWorlds:
   - {fileID: 11400000, guid: 2aa0a6e435bf9544caeee6548c877f40, type: 2}
   previewImage: {fileID: 2829606559142220587, guid: d377530e66ae53e4496c5589507987c0, type: 3}
+  enemyTileSprite: {fileID: -1884241755380423597, guid: 774d7e3869e686a41b3b2ef71fd0ea37, type: 3}
   description: 2B

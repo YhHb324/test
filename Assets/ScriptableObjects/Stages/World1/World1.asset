@@ -22,4 +22,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1b2bd23a9cb048f4a86e5993ed1542a3, type: 2}
   - {fileID: 11400000, guid: 08d317f67e8d5b24bb5ffefbbf900e03, type: 2}
   previewImage: {fileID: 2999192809883709135, guid: 058a9aaff2c9ab74d8751224c066aac2, type: 3}
+  enemyTileSprite: {fileID: -1884241755380423597, guid: 774d7e3869e686a41b3b2ef71fd0ea37, type: 3}
   description: 1
