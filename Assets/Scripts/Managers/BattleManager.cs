@@ -190,11 +190,13 @@ public class BattleManager : MonoBehaviour
         else
         {
             BackgroundManager.Instance.PlayLoseScroll();
+
+            yield return StartCoroutine(FadeUI.Instance.FadeOut(0.5f));
         }
 
-        yield return new WaitForSeconds(1f);
-        CleanupBattle();
         yield return new WaitForSeconds(0.5f);
+
+        CleanupBattle();
 
         if (playerWin)
         {
