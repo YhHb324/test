@@ -24,7 +24,7 @@ public class BattleUnit : MonoBehaviour
 
     public float moveSpeed;
 
-    public ItemData[] items = new ItemData[3];
+    public ItemData[] items = new ItemData[4];
 
     public Tile currentTile;
 
@@ -441,5 +441,71 @@ public class BattleUnit : MonoBehaviour
         Physics2D.SyncTransforms();
 
         RefreshStats();
+    }
+
+    //Evolution
+
+    public UnitData GetEvolutionResult()
+    {
+        foreach (EvolutionData evo in data.evolutions)
+        {
+            int count = 0;
+
+            foreach (ItemData item in items)
+            {
+                if (item == evo.triggerItem)
+                {
+                    count++;
+                }
+            }
+
+            if (count >= 3)
+            {
+                return evo.resultUnit;
+            }
+        }
+
+        return null;
+    }
+
+    public BattleUnit Evolve(UnitData nextData)
+    {
+        Tile tile = currentTile;
+
+        ItemData[] copiedItems =
+            (ItemData[])items.Clone();
+
+        bool benchState = isOnBench;
+
+        float hpRate =
+            (float)hp / maxHp;
+
+        GameObject obj =
+            Instantiate(
+                nextData.unitPrefab,
+                transform.position,
+                Quaternion.identity
+            );
+
+        BattleUnit newUnit =
+            obj.GetComponent<BattleUnit>();
+
+        newUnit.data = nextData;
+        newUnit.items = copiedItems;
+        newUnit.currentTile = tile;
+        newUnit.isOnBench = benchState;
+
+        tile.currentUnit = newUnit;
+
+        newUnit.RefreshStats();
+
+        newUnit.hp =
+            Mathf.RoundToInt(
+                newUnit.maxHp * hpRate
+            );
+
+        Destroy(gameObject);
+
+        return newUnit;
     }
 }

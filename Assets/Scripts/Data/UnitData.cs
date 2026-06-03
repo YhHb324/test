@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Game/UnitData")]
 public class UnitData : ScriptableObject
 {
+    [Header("Status")]
     public string unitName;
 
     public int hp;
@@ -18,4 +19,11 @@ public class UnitData : ScriptableObject
     public float moveSpeed;
 
     public Sprite sprite;
+
+    [Header("Evolution")]
+    public EvolutionData[] evolutions;
+
+    [Header("Prefab")]
+    public GameObject unitPrefab;
+
 }

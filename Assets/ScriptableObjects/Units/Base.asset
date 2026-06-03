@@ -20,3 +20,17 @@ MonoBehaviour:
   defense: 1
   moveSpeed: 3
   sprite: {fileID: 0}
+  evolutions:
+  - triggerItem: {fileID: 11400000, guid: 8a33a76a3952d61498e66ac160f52514, type: 2}
+    resultUnit: {fileID: 11400000, guid: addd099d03792284986a7b95d5cd5156, type: 2}
+  - triggerItem: {fileID: 11400000, guid: 01c1de74ee7752448a82d2f1e7f7d942, type: 2}
+    resultUnit: {fileID: 11400000, guid: c14d1b6719edb4c4c9c3777de627162b, type: 2}
+  - triggerItem: {fileID: 11400000, guid: 3cca4b79da3ab3641a22e94eb83f64d6, type: 2}
+    resultUnit: {fileID: 11400000, guid: 47914bc198f2f544d8b77e7b95fb77c1, type: 2}
+  - triggerItem: {fileID: 11400000, guid: e0a432c453b13394c9e29d420cbc9db8, type: 2}
+    resultUnit: {fileID: 11400000, guid: 534a4ae55b5f7c7488dfd44d5c0f3b0b, type: 2}
+  - triggerItem: {fileID: 11400000, guid: f3b6b112e3b1c494f90997d24126d410, type: 2}
+    resultUnit: {fileID: 11400000, guid: 8ce450aa2b9746c41babaf67a61aaab1, type: 2}
+  - triggerItem: {fileID: 11400000, guid: 147d0bf49c6605540a6208f84fe11d1e, type: 2}
+    resultUnit: {fileID: 11400000, guid: 408d4e27630f82b45995d7fa1dfa8803, type: 2}
+  unitPrefab: {fileID: 373273831549787193, guid: cfa2bb82ad069464383bc3e0bf878917, type: 3}

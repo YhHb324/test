@@ -17,6 +17,6 @@ MonoBehaviour:
   hpBonus: 0
   attackBonus: 0
   rangeBonus: 0
-  attackSpeedBonus: 5
+  attackSpeedBonus: 1
   defenseBonus: 0
   moveSpeedBonus: 0
