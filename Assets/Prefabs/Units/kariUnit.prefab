@@ -167,6 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleUnit
   isEnemy: 0
   baseHP: 0
+  maxHp: 0
   data: {fileID: 11400000, guid: 51b191e54572c0943aff3f98a62109d5, type: 2}
   hp: 0
   attack: 0
@@ -174,6 +175,11 @@ MonoBehaviour:
   attackSpeed: 0
   defense: 0
   moveSpeed: 0
+  items:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   currentTile: {fileID: 0}
   isOnBench: 1
   isDead: 0

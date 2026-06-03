@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4b28fa60b85c141b3b49f2d7f9aa15, type: 3}
+  m_Name: Armer
+  m_EditorClassIdentifier: Assembly-CSharp::UnitData
+  unitName: Armerd Gelmina
+  hp: 100
+  attack: 20
+  range: 1
+  attackSpeed: 1
+  defense: 3
+  moveSpeed: 3
+  sprite: {fileID: 0}
+  evolutions: []
+  unitPrefab: {fileID: 373273831549787193, guid: cfa2bb82ad069464383bc3e0bf878917, type: 3}

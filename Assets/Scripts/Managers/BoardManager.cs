@@ -295,7 +295,16 @@ public class BoardManager : MonoBehaviour
             {
                 unit.items[i] = draggingItem;
 
-                unit.RefreshStats();
+                UnitData evolution = unit.GetEvolutionResult();
+
+                if (evolution != null)
+                {
+                    unit = unit.Evolve(evolution);
+                }
+                else
+                {
+                    unit.RefreshStats();
+                }
 
                 ToolTipUI.Instance.Show(unit);
 
