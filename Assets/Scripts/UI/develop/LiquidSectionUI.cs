@@ -26,7 +26,7 @@ public class LiquidSectionUI : MonoBehaviour
     // 1〜9クリック
     public void ClickSlot(int index)
     {
-        int ones = index + 1;
+        int ones = index;
 
         int tens =
             DevelopmentManager.Instance.liquidTeams / 10;
@@ -103,7 +103,7 @@ public class LiquidSectionUI : MonoBehaviour
         // 1〜9
         for (int i = 0; i < slots.Count; i++)
         {
-            int value = i + 1;
+            int value = i;
 
             // ON
             if (value <= ones)
