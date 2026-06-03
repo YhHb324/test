@@ -360,6 +360,98 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 73965912}
   m_CullTransparentMesh: 1
+--- !u!1 &100206781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 100206782}
+  - component: {fileID: 100206784}
+  - component: {fileID: 100206785}
+  - component: {fileID: 100206783}
+  m_Layer: 5
+  m_Name: slot0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &100206782
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100206781}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1781697749}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &100206783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100206781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41ee9ee330e9ae445acf5f9a1dbfccef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DevelopmentSlotUI
+  resourceSection: {fileID: 426874449}
+  liquidSection: {fileID: 690375365}
+  index: 0
+  isLiquid: 1
+--- !u!222 &100206784
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100206781}
+  m_CullTransparentMesh: 1
+--- !u!114 &100206785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100206781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -8179978061109703349, guid: 19fb8a8f77704964cba71da6887419a7, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &104333449
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,8 +542,100 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DevelopmentSlotUI
   resourceSection: {fileID: 426874449}
   liquidSection: {fileID: 690375365}
-  index: 2
+  index: 3
   isLiquid: 1
+--- !u!1 &118453663
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 118453667}
+  - component: {fileID: 118453666}
+  - component: {fileID: 118453664}
+  - component: {fileID: 118453665}
+  m_Layer: 5
+  m_Name: slot0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &118453664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118453663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &118453665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118453663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41ee9ee330e9ae445acf5f9a1dbfccef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DevelopmentSlotUI
+  resourceSection: {fileID: 426874449}
+  liquidSection: {fileID: 690375365}
+  index: 0
+  isLiquid: 0
+--- !u!222 &118453666
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118453663}
+  m_CullTransparentMesh: 1
+--- !u!224 &118453667
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118453663}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1446535941}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 55, y: 55}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &182858861
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,6 +1851,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResourceSectionUI
   slots:
+  - {fileID: 118453664}
   - {fileID: 1859634877}
   - {fileID: 918623986}
   - {fileID: 732650342}
@@ -1675,6 +1860,7 @@ MonoBehaviour:
   onColor: {r: 0.427451, g: 0.61960787, b: 0.9215687, a: 1}
   offColor: {r: 0.20784315, g: 0.10980393, b: 0.454902, a: 1}
   disableColor: {r: 0.40000004, g: 0.40000004, b: 0.40000004, a: 1}
+  zeroColor: {r: 1, g: 0.39215687, b: 0.39215687, a: 1}
   countText: {fileID: 1615599567}
 --- !u!1 &444074098
 GameObject:
@@ -1982,7 +2168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DevelopmentSlotUI
   resourceSection: {fileID: 426874449}
   liquidSection: {fileID: 690375365}
-  index: 3
+  index: 4
   isLiquid: 1
 --- !u!1 &553068587
 GameObject:
@@ -2513,7 +2699,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DevelopmentSlotUI
   resourceSection: {fileID: 426874449}
   liquidSection: {fileID: 690375365}
-  index: 5
+  index: 6
   isLiquid: 1
 --- !u!1 &661812864
 GameObject:
@@ -2840,6 +3026,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LiquidSectionUI
   slots:
+  - {fileID: 100206785}
   - {fileID: 785252681}
   - {fileID: 1058302958}
   - {fileID: 104333451}
@@ -2896,7 +3083,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 65, y: 65}
+  m_SizeDelta: {x: 55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &718163997
 MonoBehaviour:
@@ -2950,7 +3137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DevelopmentSlotUI
   resourceSection: {fileID: 426874449}
   liquidSection: {fileID: 690375365}
-  index: 4
+  index: 5
   isLiquid: 0
 --- !u!1 &731000844
 GameObject:
@@ -3077,7 +3264,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 65, y: 65}
+  m_SizeDelta: {x: 55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &732650342
 MonoBehaviour:
@@ -3131,7 +3318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DevelopmentSlotUI
   resourceSection: {fileID: 426874449}
   liquidSection: {fileID: 690375365}
-  index: 2
+  index: 3
   isLiquid: 0
 --- !u!1 &736654361
 GameObject:
@@ -3302,7 +3489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DevelopmentSlotUI
   resourceSection: {fileID: 426874449}
   liquidSection: {fileID: 690375365}
-  index: 0
+  index: 1
   isLiquid: 1
 --- !u!1 &801537126
 GameObject:
@@ -3469,7 +3656,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DevelopmentSlotUI
   resourceSection: {fileID: 426874449}
   liquidSection: {fileID: 690375365}
-  index: 6
+  index: 7
   isLiquid: 1
 --- !u!1 &841095205
 GameObject:
@@ -3629,7 +3816,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 65, y: 65}
+  m_SizeDelta: {x: 55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &918623986
 MonoBehaviour:
@@ -3683,7 +3870,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DevelopmentSlotUI
   resourceSection: {fileID: 426874449}
   liquidSection: {fileID: 690375365}
-  index: 1
+  index: 2
   isLiquid: 0
 --- !u!1 &921863775
 GameObject:
@@ -4435,7 +4622,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DevelopmentSlotUI
   resourceSection: {fileID: 426874449}
   liquidSection: {fileID: 690375365}
-  index: 1
+  index: 2
   isLiquid: 1
 --- !u!1 &1093615370
 GameObject:
@@ -4473,7 +4660,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 65, y: 65}
+  m_SizeDelta: {x: 55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1093615372
 MonoBehaviour:
@@ -4527,7 +4714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DevelopmentSlotUI
   resourceSection: {fileID: 426874449}
   liquidSection: {fileID: 690375365}
-  index: 3
+  index: 4
   isLiquid: 0
 --- !u!1 &1096984799
 GameObject:
@@ -5637,7 +5824,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DevelopmentSlotUI
   resourceSection: {fileID: 426874449}
   liquidSection: {fileID: 690375365}
-  index: 8
+  index: 9
   isLiquid: 1
 --- !u!1 &1244844633
 GameObject:
@@ -6734,6 +6921,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 118453667}
   - {fileID: 1859634876}
   - {fileID: 918623985}
   - {fileID: 732650341}
@@ -7229,7 +7417,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DevelopmentSlotUI
   resourceSection: {fileID: 426874449}
   liquidSection: {fileID: 690375365}
-  index: 7
+  index: 8
   isLiquid: 1
 --- !u!1 &1615599565
 GameObject:
@@ -7548,6 +7736,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 100206782}
   - {fileID: 785252680}
   - {fileID: 1058302957}
   - {fileID: 104333450}
@@ -7961,7 +8150,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 65, y: 65}
+  m_SizeDelta: {x: 55, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1859634877
 MonoBehaviour:
@@ -8015,7 +8204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DevelopmentSlotUI
   resourceSection: {fileID: 426874449}
   liquidSection: {fileID: 690375365}
-  index: 0
+  index: 1
   isLiquid: 0
 --- !u!1 &1888900742
 GameObject:
@@ -8394,7 +8583,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DevelopmentSlotUI
   resourceSection: {fileID: 426874449}
   liquidSection: {fileID: 690375365}
-  index: 4
+  index: 5
   isLiquid: 1
 --- !u!1 &2056952198
 GameObject:

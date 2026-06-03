@@ -10,6 +10,7 @@ public class ResourceSectionUI : MonoBehaviour
     public Color onColor;
     public Color offColor;
     public Color disableColor;
+    public Color zeroColor;
 
     public TMP_Text countText;
 
@@ -22,7 +23,7 @@ public class ResourceSectionUI : MonoBehaviour
 
     public void ClickSlot(int index)
     {
-        int value = index + 1;
+        int value = index;
 
         int total =
             DevelopmentManager.Instance.liquidTeams +
@@ -51,19 +52,19 @@ public class ResourceSectionUI : MonoBehaviour
 
         for (int i = 0; i < slots.Count; i++)
         {
-            // ON
-            if (i < current)
+            // 0ボタンは常に固定色
+            if (i == 0)
+            {
+                slots[i].color = zeroColor;
+            }
+            else if (i <= current)
             {
                 slots[i].color = onColor;
             }
-
-            // 使用可能
-            else if (i < available)
+            else if (i <= available)
             {
                 slots[i].color = offColor;
             }
-
-            // 使用不可
             else
             {
                 slots[i].color = disableColor;
