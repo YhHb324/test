@@ -6990,7 +6990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoardManager
   tilePrefab: {fileID: 7305826779787727343, guid: 252152e369f6c5f4280465e92c790df7, type: 3}
-  unitPrefab: {fileID: 373273831549787193, guid: cfa2bb82ad069464383bc3e0bf878917, type: 3}
+  unitPrefab: {fileID: 373273831549787193, guid: a843d9eff84867c49b603eadc9c4c108, type: 3}
   enemyUnitPrefab: {fileID: 373273831549787193, guid: 6230e4ac30c4b7a4390c1c8d18d42559, type: 3}
   boardWidth: 7
   boardHeight: 8
