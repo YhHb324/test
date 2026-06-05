@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc4b28fa60b85c141b3b49f2d7f9aa15, type: 3}
-  m_Name: Fighter
+  m_Name: Assasin 1
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
-  unitName: Fighter Gelmina
-  hp: 75
-  attack: 30
-  range: 1
-  attackSpeed: 1.5
+  unitName: Assasin Gelmina
+  hp: 90
+  attack: 35
+  range: 2
+  attackSpeed: 8
   defense: 1
-  moveSpeed: 3
-  rankUpResult: {fileID: 11400000, guid: 3f4df32e6bfbc0f47ac1a753afb6c254, type: 2}
-  rank: 1
+  moveSpeed: 5
+  rankUpResult: {fileID: 0}
+  rank: 2
   sprite: {fileID: 0}
   evolutions: []
   unitPrefab: {fileID: 373273831549787193, guid: cfa2bb82ad069464383bc3e0bf878917, type: 3}

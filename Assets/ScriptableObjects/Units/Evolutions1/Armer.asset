@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: Armer
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Armerd Gelmina
-  hp: 100
+  hp: 125
   attack: 20
   range: 1
   attackSpeed: 1
   defense: 3
   moveSpeed: 3
+  rankUpResult: {fileID: 11400000, guid: 7b924fdce12e7df40a21b40399aeb915, type: 2}
+  rank: 1
   sprite: {fileID: 0}
   evolutions: []
   unitPrefab: {fileID: 373273831549787193, guid: cfa2bb82ad069464383bc3e0bf878917, type: 3}

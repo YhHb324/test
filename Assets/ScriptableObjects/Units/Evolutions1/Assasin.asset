@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: Assasin
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Assasin Gelmina
-  hp: 50
+  hp: 65
   attack: 35
   range: 1
   attackSpeed: 3
   defense: 1
   moveSpeed: 5
+  rankUpResult: {fileID: 11400000, guid: 8942cb015d18fb243be221a3fb632267, type: 2}
+  rank: 1
   sprite: {fileID: 0}
   evolutions: []
   unitPrefab: {fileID: 373273831549787193, guid: cfa2bb82ad069464383bc3e0bf878917, type: 3}

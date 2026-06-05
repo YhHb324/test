@@ -26,4 +26,16 @@ public class ItemManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
     }
+
+    void Start()
+    {
+        if (DevelopmentManager.Instance.debugMode)
+        {
+            for (int i = 0; i < itemCounts.Length; i++)
+            {
+                itemCounts[i] = 10;
+            }
+        }
+    }
+
 }
