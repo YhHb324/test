@@ -60,6 +60,10 @@ public class RankUpManager : MonoBehaviour
 
         BattleUnit baseUnit = units[0];
 
+        ItemData rankUpItem = baseUnit.evolutionKeyItem;
+
+        int guaranteeCount = 4;
+
         List<BattleUnit> materials =
             new()
             {
@@ -98,6 +102,15 @@ public class RankUpManager : MonoBehaviour
             obj.GetComponent<BattleUnit>();
 
         newUnit.data = nextData;
+
+        newUnit.rankUpKeyItem =
+            rankUpItem;
+
+        newUnit.rankUpKeyItemCount =
+            guaranteeCount;
+
+        // 進化保証は消す
+        newUnit.evolutionKeyItem = null;
 
         newUnit.currentTile =
             baseUnit.currentTile;

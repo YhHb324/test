@@ -27,6 +27,12 @@ public class BattleUnit : MonoBehaviour
     public ItemData[] items = new ItemData[4];
     public ItemData evolutionKeyItem;
 
+    public ItemData rankUpKeyItem;
+    public int rankUpKeyItemCount;
+
+    [SerializeField]
+    float itemReturnRate = 0.375f;
+
     public Tile currentTile;
 
     Tile originalTile;
@@ -327,6 +333,8 @@ public class BattleUnit : MonoBehaviour
 
     void Die()
     {
+        ReturnItems();
+
         isDead = true;
 
         currentTile.currentUnit = null;
@@ -588,5 +596,68 @@ public class BattleUnit : MonoBehaviour
         Destroy(gameObject);
 
         return newUnit;
+    }
+
+    void ReturnItems()
+    {
+        OwnedItemsUI ui =
+            FindFirstObjectByType<OwnedItemsUI>();
+
+        // 進化保証
+        if (evolutionKeyItem != null)
+        {
+            AddItem(evolutionKeyItem);
+        }
+
+        // ランクアップ保証
+        if (
+            rankUpKeyItem != null &&
+            rankUpKeyItemCount > 0
+        )
+        {
+            for (int i = 0;
+                 i < rankUpKeyItemCount;
+                 i++)
+            {
+                AddItem(rankUpKeyItem);
+            }
+        }
+
+        // 現在装備中アイテム
+        foreach (ItemData item in items)
+        {
+            if (item == null)
+                continue;
+
+            if (Random.value <= itemReturnRate)
+            {
+                AddItem(item);
+            }
+        }
+
+        if (ui != null)
+        {
+            ui.Refresh();
+        }
+    }
+
+    void AddItem(ItemData item)
+    {
+        OwnedItemsUI ui =
+            FindFirstObjectByType<OwnedItemsUI>();
+
+        if (ui == null)
+            return;
+
+        int index =
+            System.Array.IndexOf(
+                ui.itemDatas,
+                item
+            );
+
+        if (index < 0)
+            return;
+
+        ItemManager.Instance.itemCounts[index]++;
     }
 }
