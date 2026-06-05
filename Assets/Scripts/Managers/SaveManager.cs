@@ -10,6 +10,12 @@ public class SaveManager : MonoBehaviour
 
     // ユニット保存
     public List<SavedUnitData> savedUnits =
+    new List<SavedUnitData>();
+
+    public List<SavedUnitData> battleResultUnits =
+        new List<SavedUnitData>();
+
+    public List<SavedUnitData> damagedUnits =
         new List<SavedUnitData>();
 
     // アイテム所持数保存
@@ -132,6 +138,78 @@ public class SaveManager : MonoBehaviour
         );
     }
 
+    public void ProcessBattleResult()
+    {
+        battleResultUnits.Clear();
+
+        BattleUnit[] units =
+            FindObjectsByType<BattleUnit>(
+                FindObjectsSortMode.None);
+
+        foreach (BattleUnit unit in units)
+        {
+            if (unit.isEnemy)
+                continue;
+
+            SavedUnitData save =
+                new SavedUnitData();
+
+            save.unitData = unit.data;
+            save.items =
+                (ItemData[])unit.items.Clone();
+
+            save.isOnBench =
+                unit.isOnBench;
+
+            if (unit.currentTile != null)
+            {
+                save.x = unit.currentTile.x;
+                save.y = unit.currentTile.y;
+                save.benchIndex =
+                    unit.currentTile.x;
+            }
+
+            battleResultUnits.Add(save);
+        }
+
+        Debug.Log("damagedUnits=" + damagedUnits.Count);
+        battleResultUnits.AddRange(damagedUnits);
+        Debug.Log("battleResultUnits=" + battleResultUnits.Count);
+
+        damagedUnits.Clear();
+    }
+
+    public void SaveDamagedUnit(BattleUnit unit)
+    {
+        SavedUnitData save =
+            new SavedUnitData();
+
+        save.unitData =
+            unit.data;
+
+        save.items =
+            (ItemData[])unit.items.Clone();
+
+        save.isDamaged = true;
+
+        save.isOnBench =
+            unit.isOnBench;
+
+        if (unit.currentTile != null)
+        {
+            save.x =
+                unit.currentTile.x;
+
+            save.y =
+                unit.currentTile.y;
+
+            save.benchIndex =
+                unit.currentTile.x;
+        }
+
+        damagedUnits.Add(save);
+        Debug.Log("DamagedSaved : " + unit.name);
+    }
     // =========================
     // Item Save
     // =========================

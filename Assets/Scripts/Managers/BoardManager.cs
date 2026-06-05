@@ -20,6 +20,7 @@ public class BoardManager : MonoBehaviour
 
     Tile[,] boardTiles;
     Tile[] benchTiles;
+    Tile[] recoveryTiles;
 
     BattleUnit draggingUnit;
 
@@ -34,6 +35,7 @@ public class BoardManager : MonoBehaviour
     {
         CreateBoard();
         CreateBench();
+        CreateRecoveryBench();
         RestoreUnits();
 
         StageManager.Instance.SpawnStageEnemy();
@@ -181,6 +183,12 @@ public class BoardManager : MonoBehaviour
 
         BattleUnit otherUnit = null;
 
+        if (draggingUnit.isDamaged && targetTile.tileType == TileType.Board)
+        {
+            ReturnUnit();
+            return;
+        }
+
         // 既にユニットがいる
         if (
             targetTile.currentUnit != null &&
@@ -250,9 +258,7 @@ public class BoardManager : MonoBehaviour
         draggingUnit.isOnBench =
         (targetTile.tileType == TileType.Bench);
 
-        draggingUnit.SetDirectionForTile();
-
-        Debug.Log("Called DropUnit");
+        draggingUnit.SetDirectionForTile();;
 
         draggingUnit = null;
     }
@@ -338,12 +344,6 @@ public class BoardManager : MonoBehaviour
 
                     itemsUI.Refresh();
                 }
-
-                Debug.Log(
-                    unit.name +
-                    " equipped " +
-                    draggingItem.itemName
-                );
 
                 dragItemIcon.enabled = false;
                 draggingItem = null;
@@ -526,6 +526,45 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    // =========================
+    // Recovery生成
+    // =========================
+
+    void CreateRecoveryBench()
+    {
+        recoveryTiles = new Tile[6];
+
+        float startX = -7f;
+        float startY = -3.5f;
+
+        int index = 0;
+
+        for (int y = 0; y < 2; y++)
+        {
+            for (int x = 0; x < 3; x++)
+            {
+                GameObject obj =
+                    Instantiate(
+                        tilePrefab,
+                        new Vector3(
+                            startX + x,
+                            startY - y,
+                            0),
+                        Quaternion.identity);
+
+                Tile tile =
+                    obj.GetComponent<Tile>();
+
+                tile.tileType =
+                    TileType.Recovery;
+
+                recoveryTiles[index] = tile;
+                index++;
+            }
+        }
+    }
+
+
     public Tile GetBoardTile(int x, int y)
     {
         if (x < 0 || x >= boardWidth)
@@ -537,10 +576,8 @@ public class BoardManager : MonoBehaviour
         return boardTiles[x, y];
     }
 
-    public void SpawnPlayerUnitsToBench()
+    public void SpawnPlayerUnitsToBench(int spawnCount)
     {
-        int spawnCount =
-            DevelopmentManager.Instance.liquidTeams;
 
         for (int i = 0; i < spawnCount; i++)
         {
@@ -569,9 +606,6 @@ public class BoardManager : MonoBehaviour
 
     void SpawnOneUnit(Tile tile)
     {
-        Debug.Log(
-            $"SpawnOneUnit called / tile = ({tile.x}, {tile.y}) / tileType = {tile.tileType} / tileArea = {tile.tileArea}"
-       );
 
         GameObject obj =
             Instantiate(unitPrefab,
@@ -583,10 +617,6 @@ public class BoardManager : MonoBehaviour
         unit.currentTile = tile;
         tile.currentUnit = unit;
 
-        Debug.Log(
-            $"{unit.name}: spawned / currentTile.tileType = {unit.currentTile.tileType}"
-       );
-
         unit.SetDirectionForTile();
     }
 
@@ -594,8 +624,6 @@ public class BoardManager : MonoBehaviour
     {
         StageData stage =
             StageManager.Instance.CurrentStage();
-
-        Debug.Log(stage.enemies.Length);
 
         foreach (EnemySpawnData enemy
             in stage.enemies)
@@ -693,4 +721,142 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    public void RestoreBattleResultUnits()
+    {
+        Debug.Log("Restore count = "+ SaveManager.Instance.battleResultUnits.Count);
+
+        foreach (
+            SavedUnitData save
+            in SaveManager.Instance.battleResultUnits
+        )
+        {
+            Debug.Log(save.unitData.unitName + " damaged="+ save.isDamaged);
+
+            Tile tile;
+
+            if (save.isOnBench)
+            {
+                tile = benchTiles[save.benchIndex];
+            }
+            else
+            {
+                tile = GetBoardTile(save.x, save.y);
+            }
+
+            if (tile == null)
+                continue;
+
+            if (tile.currentUnit != null)
+            {
+                Debug.Log(
+                    "Occupied : "
+                    + save.unitData.unitName
+                );
+                continue;
+            }
+
+            GameObject obj =
+                Instantiate(
+                    unitPrefab,
+                    tile.transform.position,
+                    Quaternion.identity);
+
+            BattleUnit unit =
+                obj.GetComponent<BattleUnit>();
+
+            unit.data = save.unitData;
+            unit.items =
+                (ItemData[])save.items.Clone();
+
+            unit.isDamaged =
+                save.isDamaged;
+            unit.RefreshDamageVisual();
+
+            unit.currentTile = tile;
+            tile.currentUnit = unit;
+
+            unit.RefreshStats();
+            unit.SetDirectionForTile();
+        }
+    }
+
+    int GetRepairCost(BattleUnit unit)
+    {
+        if (unit.data.rank == 2)
+            return 1;
+
+        if (unit.data.rank == 3)
+            return 3;
+
+        return 0;
+    }
+
+    public void RecoverDamagedUnits(int availableTeams)
+    {
+        int remainTeams = availableTeams;
+
+        BattleUnit[] units =
+            FindObjectsByType<BattleUnit>(
+                FindObjectsSortMode.None);
+
+        foreach (BattleUnit unit in units)
+        {
+            if (!unit.isDamaged)
+                continue;
+
+            if (unit.currentTile.tileType
+                != TileType.Recovery)
+            {
+                continue;
+            }
+
+            int cost =
+                GetRepairCost(unit);
+
+            if (remainTeams < cost)
+                continue;
+
+            remainTeams -= cost;
+
+            unit.isDamaged = false;
+            unit.RefreshDamageVisual();
+
+            MoveToBench(unit);
+        }
+
+        SpawnPlayerUnitsToBench(remainTeams);
+    }
+
+    void MoveToBench(BattleUnit unit)
+    {
+        Tile emptyTile = null;
+
+        foreach (Tile tile in benchTiles)
+        {
+            if (tile.currentUnit == null)
+            {
+                emptyTile = tile;
+                break;
+            }
+        }
+
+        if (emptyTile == null)
+        {
+            Debug.Log("Bench Full");
+            return;
+        }
+
+        if (unit.currentTile != null)
+        {
+            unit.currentTile.currentUnit = null;
+        }
+
+        unit.currentTile = emptyTile;
+        emptyTile.currentUnit = unit;
+
+        unit.transform.position =
+            emptyTile.transform.position;
+
+        unit.isOnBench = true;
+    }
 }

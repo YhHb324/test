@@ -3,14 +3,16 @@ using UnityEngine;
 public enum TileType
 {
     Board,
-    Bench
+    Bench,
+    Recovery
 }
 
 public enum TileArea
 {
     Player,
     Enemy,
-    Bench
+    Bench,
+    Recovery
 }
 
 public class Tile : MonoBehaviour

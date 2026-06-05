@@ -73,6 +73,8 @@ public class StageManager : MonoBehaviour
 
 
         DevelopmentManager.Instance.NextStage(1);
+        SaveManager.Instance.ProcessBattleResult();
+        BoardManager.Instance.RestoreBattleResultUnits();
         FindFirstObjectByType<StageUI>().Refresh();
 
         return true;
