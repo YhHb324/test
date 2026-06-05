@@ -19,4 +19,8 @@ MonoBehaviour:
   attackSpeed: 1
   defense: 1
   moveSpeed: 1
+  rankUpResult: {fileID: 0}
+  rank: 0
   sprite: {fileID: 0}
+  evolutions: []
+  unitPrefab: {fileID: 0}

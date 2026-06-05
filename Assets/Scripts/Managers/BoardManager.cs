@@ -16,6 +16,8 @@ public class BoardManager : MonoBehaviour
     public ItemData draggingItem;
     public Image dragItemIcon;
 
+    public ItemData triggeritem;
+
     Tile[,] boardTiles;
     Tile[] benchTiles;
 
@@ -295,11 +297,17 @@ public class BoardManager : MonoBehaviour
             {
                 unit.items[i] = draggingItem;
 
-                UnitData evolution = unit.GetEvolutionResult();
+                EvolutionData evo = unit.GetEvolution();
 
-                if (evolution != null)
+                if (evo != null)
                 {
-                    unit = unit.Evolve(evolution);
+                    BattleUnit newUnit =
+                        unit.Evolve(evo.resultUnit);
+
+                    newUnit.evolutionKeyItem =
+                        evo.triggerItem;
+
+                    RankUpManager.Instance.CheckRankUp();
                 }
                 else
                 {

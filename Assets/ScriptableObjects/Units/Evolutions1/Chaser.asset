@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: Chaser
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Chaser Gelmina
-  hp: 50
+  hp: 65
   attack: 20
   range: 1
   attackSpeed: 5
   defense: 1
   moveSpeed: 5
+  rankUpResult: {fileID: 11400000, guid: 7c7f78bc429d2a14282091a76dbbc310, type: 2}
+  rank: 1
   sprite: {fileID: 0}
   evolutions: []
   unitPrefab: {fileID: 373273831549787193, guid: cfa2bb82ad069464383bc3e0bf878917, type: 3}

@@ -25,6 +25,7 @@ public class BattleUnit : MonoBehaviour
     public float moveSpeed;
 
     public ItemData[] items = new ItemData[4];
+    public ItemData evolutionKeyItem;
 
     public Tile currentTile;
 
@@ -445,7 +446,7 @@ public class BattleUnit : MonoBehaviour
 
     //Evolution
 
-    public UnitData GetEvolutionResult()
+    public EvolutionData GetEvolution()
     {
         foreach (EvolutionData evo in data.evolutions)
         {
@@ -461,7 +462,7 @@ public class BattleUnit : MonoBehaviour
 
             if (count >= 3)
             {
-                return evo.resultUnit;
+                return evo;
             }
         }
 

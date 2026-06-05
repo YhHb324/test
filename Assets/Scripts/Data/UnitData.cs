@@ -18,6 +18,10 @@ public class UnitData : ScriptableObject
 
     public float moveSpeed;
 
+    public UnitData rankUpResult;
+
+    public int rank;
+
     public Sprite sprite;
 
     [Header("Evolution")]
@@ -25,5 +29,4 @@ public class UnitData : ScriptableObject
 
     [Header("Prefab")]
     public GameObject unitPrefab;
-
 }

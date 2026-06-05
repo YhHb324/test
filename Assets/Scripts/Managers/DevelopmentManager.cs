@@ -13,6 +13,9 @@ public class DevelopmentManager : MonoBehaviour
     // 資源調達
     public int resourceTeams = 0;
 
+    [SerializeField]
+    public bool debugMode;
+
     void Awake()
     {
         if (Instance != null)
@@ -24,6 +27,14 @@ public class DevelopmentManager : MonoBehaviour
         Instance = this;
 
         DontDestroyOnLoad(gameObject);
+    }
+
+    void Start()
+    {
+        if (debugMode)
+        {
+            totalTeams = 50;
+        }
     }
 
     // 使用済み
