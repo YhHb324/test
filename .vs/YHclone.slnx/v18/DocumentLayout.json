@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "E:\\YHclone\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|e:\\yhclone\\assets\\scripts\\ui\\tooltips\\tooltipui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\tooltips\\tooltipui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|e:\\yhclone\\assets\\scripts\\battle\\unitdirectionview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\battle\\unitdirectionview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|e:\\yhclone\\assets\\scripts\\battle\\battleunit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\battle\\battleunit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|e:\\yhclone\\assets\\scripts\\managers\\boardmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\boardmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|e:\\yhclone\\assets\\scripts\\battle\\battleunit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\battle\\battleunit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|e:\\yhclone\\assets\\scripts\\managers\\battlemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\battlemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,46 +26,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "BattleUnit.cs",
-              "DocumentMoniker": "E:\\YHclone\\Assets\\Scripts\\Battle\\BattleUnit.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\Battle\\BattleUnit.cs",
-              "ToolTip": "E:\\YHclone\\Assets\\Scripts\\Battle\\BattleUnit.cs",
-              "RelativeToolTip": "Assets\\Scripts\\Battle\\BattleUnit.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAAAuwFEAAAASAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "BattleManager.cs",
+              "DocumentMoniker": "E:\\YHclone\\Assets\\Scripts\\Managers\\BattleManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\BattleManager.cs",
+              "ToolTip": "E:\\YHclone\\Assets\\Scripts\\Managers\\BattleManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Managers\\BattleManager.cs",
+              "ViewState": "AgIAAO8AAAAAAAAAAAAkwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-29T10:44:13.787Z",
-              "IsPinned": true,
+              "WhenOpened": "2026-06-05T05:36:00.367Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "BoardManager.cs",
               "DocumentMoniker": "E:\\YHclone\\Assets\\Scripts\\Managers\\BoardManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\BoardManager.cs",
               "ToolTip": "E:\\YHclone\\Assets\\Scripts\\Managers\\BoardManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Managers\\BoardManager.cs",
-              "ViewState": "AgIAABsBAAAAAAAAAAAgwCsBAAAuAAAAAAAAAA==",
+              "ViewState": "AgIAACgCAAAAAAAAAAAUwDcCAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-29T10:45:52.227Z",
+              "WhenOpened": "2026-06-05T05:35:06.989Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BattleUnit.cs",
+              "DocumentMoniker": "E:\\YHclone\\Assets\\Scripts\\Battle\\BattleUnit.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Battle\\BattleUnit.cs",
+              "ToolTip": "E:\\YHclone\\Assets\\Scripts\\Battle\\BattleUnit.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Battle\\BattleUnit.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAAACMAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-05T04:48:53.284Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ToolTipUI.cs",
-              "DocumentMoniker": "E:\\YHclone\\Assets\\Scripts\\UI\\ToolTips\\ToolTipUI.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\UI\\ToolTips\\ToolTipUI.cs",
-              "ToolTip": "E:\\YHclone\\Assets\\Scripts\\UI\\ToolTips\\ToolTipUI.cs",
-              "RelativeToolTip": "Assets\\Scripts\\UI\\ToolTips\\ToolTipUI.cs",
-              "ViewState": "AgIAAEYAAAAAAAAAAAAUwC0AAAAlAAAAAAAAAA==",
+              "Title": "UnitDirectionView.cs",
+              "DocumentMoniker": "E:\\YHclone\\Assets\\Scripts\\Battle\\UnitDirectionView.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Battle\\UnitDirectionView.cs",
+              "ToolTip": "E:\\YHclone\\Assets\\Scripts\\Battle\\UnitDirectionView.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Battle\\UnitDirectionView.cs",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAUwEkAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-29T10:36:55.156Z",
+              "WhenOpened": "2026-06-05T04:52:50.735Z",
               "EditorCaption": ""
             }
           ]

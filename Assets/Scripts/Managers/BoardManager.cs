@@ -207,6 +207,11 @@ public class BoardManager : MonoBehaviour
 
             otherUnit.transform.position =
                 oldTile.transform.position;
+
+            otherUnit.isOnBench =
+                (oldTile.tileType == TileType.Bench);
+
+            otherUnit.SetDirectionForTile();
         }
         else
         {
@@ -242,6 +247,9 @@ public class BoardManager : MonoBehaviour
 
         draggingUnit.isOnBench =
         (targetTile.tileType == TileType.Bench);
+
+        draggingUnit.SetDirectionForTile();
+
         Debug.Log("Called DropUnit");
 
         draggingUnit = null;
@@ -553,6 +561,10 @@ public class BoardManager : MonoBehaviour
 
     void SpawnOneUnit(Tile tile)
     {
+        Debug.Log(
+            $"SpawnOneUnit called / tile = ({tile.x}, {tile.y}) / tileType = {tile.tileType} / tileArea = {tile.tileArea}"
+       );
+
         GameObject obj =
             Instantiate(unitPrefab,
                 tile.transform.position,
@@ -562,6 +574,12 @@ public class BoardManager : MonoBehaviour
 
         unit.currentTile = tile;
         tile.currentUnit = unit;
+
+        Debug.Log(
+            $"{unit.name}: spawned / currentTile.tileType = {unit.currentTile.tileType}"
+       );
+
+        unit.SetDirectionForTile();
     }
 
     public void SpawnStageEnemies()
@@ -662,6 +680,8 @@ public class BoardManager : MonoBehaviour
             tile.currentUnit = unit;
 
             unit.RefreshStats();
+
+            unit.SetDirectionForTile();
         }
     }
 

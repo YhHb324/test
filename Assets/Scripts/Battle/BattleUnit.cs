@@ -33,9 +33,19 @@ public class BattleUnit : MonoBehaviour
     public bool isOnBench = true;
     public bool isDead = false;
 
+    UnitDirectionView directionView;
+
     void Start()
     {
+        directionView = GetComponent<UnitDirectionView>();
+
+        Debug.Log(
+            $"{name}: Start called / currentTile = {(currentTile == null ? "null" : currentTile.tileType.ToString())}"
+        );
+
         RefreshStats();
+
+        SetDirectionForTile();
     }
 
     public void StartAI()
@@ -279,8 +289,30 @@ public class BattleUnit : MonoBehaviour
 
     void Attack(BattleUnit target)
     {
+        FaceTarget(target);
+
         target.TakeDamage(attack);
     }
+
+    void FaceTarget(BattleUnit target)
+    {
+        if (target == null)
+            return;
+
+        if (currentTile == null || target.currentTile == null)
+            return;
+
+        if (directionView == null)
+            return;
+
+        Vector2Int direction = new Vector2Int(
+            target.currentTile.x - currentTile.x,
+            target.currentTile.y - currentTile.y
+        );
+
+        directionView.SetDirectionFromVector(direction);
+    }
+
 
     public void TakeDamage(int damage)
     {
@@ -380,6 +412,16 @@ public class BattleUnit : MonoBehaviour
     {
         Tile oldTile = currentTile;
 
+        if (directionView != null && oldTile != null && tile != null)
+        {
+            Vector2Int moveDirection = new Vector2Int(
+                tile.x - oldTile.x,
+                tile.y - oldTile.y
+            );
+
+            directionView.SetDirectionFromVector(moveDirection);
+        }
+
         tile.reservedUnit = this;
 
         if (oldTile.currentUnit == this)
@@ -399,7 +441,7 @@ public class BattleUnit : MonoBehaviour
 
         float time = 0f;
 
-        while (time < 1f/moveSpeed)
+        while (time < 1f / moveSpeed)
         {
             time += Time.deltaTime;
 
@@ -407,7 +449,7 @@ public class BattleUnit : MonoBehaviour
                 Vector3.Lerp(
                     start,
                     end,
-                    time / (1f/moveSpeed));
+                    time / (1f / moveSpeed));
 
             yield return null;
         }
@@ -441,6 +483,44 @@ public class BattleUnit : MonoBehaviour
         Physics2D.SyncTransforms();
 
         RefreshStats();
+
+        SetDirectionForTile();
+
+    }
+
+    public void SetDirectionForTile()
+    {
+        if (directionView == null)
+        {
+            directionView = GetComponent<UnitDirectionView>();
+        }
+
+        if (directionView == null)
+        {
+            Debug.LogWarning($"{name}: directionView is null");
+            return;
+        }
+
+        if (currentTile == null)
+        {
+            Debug.LogWarning($"{name}: currentTile is null");
+            return;
+        }
+
+        Debug.Log(
+            $"{name}: SetDirectionForTile called / tileType = {currentTile.tileType} / tileArea = {currentTile.tileArea}"
+        );
+
+        if (currentTile.tileType == TileType.Bench)
+        {
+            Debug.Log($"{name}: Bench detected → FaceFront");
+            directionView.FaceFront();
+        }
+        else if (currentTile.tileType == TileType.Board)
+        {
+            Debug.Log($"{name}: Board detected → FaceBack");
+            directionView.FaceBack();
+        }
     }
 
     //Evolution

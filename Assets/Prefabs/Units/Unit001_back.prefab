@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 4136151079647454576}
   - component: {fileID: -2793273230635292083}
   - component: {fileID: -916007517637385753}
+  - component: {fileID: -1791354651074690598}
   m_Layer: 0
-  m_Name: kariUnit 1
+  m_Name: Unit001_back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -132,7 +133,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.42, y: 1.52}
+    oldSize: {x: 0.47333333, y: 0.50666666}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -183,3 +184,19 @@ MonoBehaviour:
   currentTile: {fileID: 0}
   isOnBench: 1
   isDead: 0
+--- !u!114 &-1791354651074690598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373273831549787193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b4e832af7ca97d45b671737098454ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitDirectionView
+  spriteRenderer: {fileID: 5511656993734673399}
+  frontSprite: {fileID: -4317919230140601287, guid: 9924c4b651888d046842189656f23f53, type: 3}
+  backSprite: {fileID: 1350959839480861481, guid: b8b61f87574a48c4e84d49b4d39543e6, type: 3}
+  sideSprite: {fileID: -172541803952416031, guid: 5f5dffac83e347648995e8f6df7cf6d3, type: 3}
