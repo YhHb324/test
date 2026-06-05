@@ -53,7 +53,9 @@ public class BattleManager : MonoBehaviour
 
     void EnterSetup2()
     {
-        BoardManager.Instance.SpawnPlayerUnitsToBench();
+        BoardManager.Instance.RecoverDamagedUnits(
+            DevelopmentManager.Instance.liquidTeams
+        );
 
         FindFirstObjectByType<OwnedItemsUI>()
             .GenerateItems();
@@ -110,6 +112,33 @@ public class BattleManager : MonoBehaviour
         }
 
         Debug.Log("Battle Start");
+    }
+
+    bool HasDamagedUnitOnBoard()
+    {
+        BattleUnit[] units =
+            FindObjectsByType<BattleUnit>(
+                FindObjectsSortMode.None);
+
+        foreach (BattleUnit unit in units)
+        {
+            if (unit.isEnemy)
+                continue;
+
+            if (!unit.isDamaged)
+                continue;
+
+            if (
+                unit.currentTile != null &&
+                unit.currentTile.tileType
+                == TileType.Board
+            )
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void OnUnitDead(BattleUnit unit)

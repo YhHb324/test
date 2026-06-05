@@ -8,6 +8,7 @@ public class SavedUnitData
     public ItemData[] items;
 
     public bool isOnBench;
+    public bool isDamaged;
 
     public int x;
     public int y;

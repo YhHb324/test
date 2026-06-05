@@ -28,6 +28,36 @@ public class PhaseButtonUI : MonoBehaviour
             text.text = "戦闘中2";
         }
 
-        button.interactable = (state != GameState.Battle);
+        bool canStartBattle = true;
+
+        if (state == GameState.Setup2)
+        {
+            BattleUnit[] units =
+                FindObjectsByType<BattleUnit>(
+                    FindObjectsSortMode.None);
+
+            foreach (BattleUnit unit in units)
+            {
+                if (unit.isEnemy)
+                    continue;
+
+                if (!unit.isDamaged)
+                    continue;
+
+                if (unit.currentTile == null)
+                    continue;
+
+                if (unit.currentTile.tileType
+                    == TileType.Board)
+                {
+                    canStartBattle = false;
+                    break;
+                }
+            }
+        }
+
+        button.interactable =
+            state != GameState.Battle
+            && canStartBattle;
     }
 }

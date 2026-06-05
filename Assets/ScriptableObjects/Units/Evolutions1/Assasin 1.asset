@@ -23,4 +23,4 @@ MonoBehaviour:
   rank: 2
   sprite: {fileID: 0}
   evolutions: []
-  unitPrefab: {fileID: 373273831549787193, guid: cfa2bb82ad069464383bc3e0bf878917, type: 3}
+  unitPrefab: {fileID: 373273831549787193, guid: a843d9eff84867c49b603eadc9c4c108, type: 3}

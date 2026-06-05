@@ -40,19 +40,42 @@ public class BattleUnit : MonoBehaviour
     public bool isOnBench = true;
     public bool isDead = false;
 
+    public bool isDamaged;
+
+    SpriteRenderer spriteRenderer;
     UnitDirectionView directionView;
 
     void Start()
     {
         directionView = GetComponent<UnitDirectionView>();
 
-        Debug.Log(
-            $"{name}: Start called / currentTile = {(currentTile == null ? "null" : currentTile.tileType.ToString())}"
-        );
-
         RefreshStats();
 
         SetDirectionForTile();
+    }
+
+    public void RefreshDamageVisual()
+    {
+        if (spriteRenderer == null)
+        {
+            spriteRenderer =
+                GetComponent<SpriteRenderer>();
+        }
+
+        if (isDamaged)
+        {
+            spriteRenderer.color =
+                new Color(
+                    0.5f,
+                    0.5f,
+                    0.5f
+                    );
+        }
+        else
+        {
+            spriteRenderer.color =
+                Color.white;
+        }
     }
 
     public void StartAI()
@@ -333,7 +356,14 @@ public class BattleUnit : MonoBehaviour
 
     void Die()
     {
-        ReturnItems();
+        if (data.rank >= 2)
+        {
+            SaveManager.Instance.SaveDamagedUnit(this);
+        }
+        else
+        {
+            ReturnItems();
+        }
 
         isDead = true;
 
@@ -472,7 +502,6 @@ public class BattleUnit : MonoBehaviour
     {
         if (originalTile == null)
         {
-            Debug.Log($"{name}: originalTile is null");
             return;
         }
 
@@ -506,28 +535,20 @@ public class BattleUnit : MonoBehaviour
 
         if (directionView == null)
         {
-            Debug.LogWarning($"{name}: directionView is null");
             return;
         }
 
         if (currentTile == null)
         {
-            Debug.LogWarning($"{name}: currentTile is null");
             return;
         }
 
-        Debug.Log(
-            $"{name}: SetDirectionForTile called / tileType = {currentTile.tileType} / tileArea = {currentTile.tileArea}"
-        );
-
         if (currentTile.tileType == TileType.Bench)
         {
-            Debug.Log($"{name}: Bench detected → FaceFront");
             directionView.FaceFront();
         }
         else if (currentTile.tileType == TileType.Board)
         {
-            Debug.Log($"{name}: Board detected → FaceBack");
             directionView.FaceBack();
         }
     }
