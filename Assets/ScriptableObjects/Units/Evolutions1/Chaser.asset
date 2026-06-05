@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Chaser
   m_EditorClassIdentifier: Assembly-CSharp::UnitData
   unitName: Chaser Gelmina
-  hp: 65
+  hp: 10
   attack: 20
   range: 1
   attackSpeed: 5
